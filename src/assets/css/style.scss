@@ -1,0 +1,280 @@
+/*!
+ * Name: VueWPress
+ * Author: Darlang
+ * Version: 0.2
+ * Licese: MIT;
+ * Link: https://www.darlang.com
+ * Github: https://github.com/crlang/vuewpress
+*/
+
+/*-----------------------------------------------------------------------
+---------------------------- init definition ----------------------------
+-----------------------------------------------------------------------*/
+
+/*!
+ *
+ * 层级定义：
+ *    pop：交互层，最大层级，用户交互
+ *    msk: 蒙版层，用于导航及内容层上级遮罩，低于交互层
+ *    nav: 定位层，固定某个部件，位于内容层上方，用于导航，返回顶部等
+ *    con: 内容层，普通内容层级，默认层级
+ *
+ */
+$z-pop: 1003;
+$z-msk: 1001;
+$z-fix:  999;
+$z-lod:  997;
+
+/*!
+ *
+ * 颜色定义
+ *--网站色
+ *    主色：#1e90ff
+ *    辅色：#a4b0be
+ *    反色：#ff6348
+ *
+ */
+$MC:  #1e90ff;
+$AC:  #a4b0be;
+$UMC: #ff6348;
+
+/*-----------------------------------------------------------------------
+----------------------------- Global  Style -----------------------------
+-----------------------------------------------------------------------*/
+
+#app {
+  padding: 2.5rem 0 3.4375rem 0;
+}
+
+.fixed-header,
+.fixed-footer {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: $z-fix;
+}
+
+/* header */
+.fixed-header {
+  top: 0;
+  .top-bar {
+    background: $MC;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    .pg-back {
+      padding: 0.5rem 0.75rem;
+    }
+    .pg-title {
+      width: calc(100% - 5rem);
+      padding: 0.5rem 0;
+      font-weight: 300;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .pg-nav {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+  .pg-nav-content {
+    position: absolute;
+    right: 0;
+    top: 2.5rem;
+    min-width: 7.5rem;
+    opacity: 0;
+    transform: translateY(50%);
+    transition: all 0.25s linear;
+    &.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .weui-cells {
+      margin-top: 0;
+      border: 1px solid #eee;
+      .weui-cell:before {
+        left: 0.3125rem;
+        right: 0.3125rem;
+      }
+    }
+  }
+}
+
+/* footer */
+.fixed-footer {
+  bottom: 0;
+}
+
+/* loading */
+.page-loading {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: $z-lod;
+  .v-dot1 {
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    animation: v-dotRotate 2s 0s infinite linear;
+    animation-fill-mode: forwards;
+    .v-dot2 {
+      background-color: rgb(93, 197, 150);
+      height: 30px;
+      width: 30px;
+      border-radius: 100%;
+      animation: v-dotBounce 2s 0s infinite linear;
+      animation-fill-mode: forwards;
+      position: absolute;
+      top: 0;
+      bottom: auto;
+    }
+    .v-dot3 {
+      animation: v-dotBounce 2s -1s infinite linear;
+      animation-fill-mode: forwards;
+      position: absolute;
+      top: auto;
+      bottom: 0;
+      background-color: rgb(93, 197, 150);
+      height: 30px;
+      width: 30px;
+      border-radius: 100%;
+    }
+  }
+}
+@keyframes v-dotRotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes v-dotBounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.0);
+  }
+}
+
+/*-----------------------------------------------------------------------
+------------------------------ Home  Style ------------------------------
+-----------------------------------------------------------------------*/
+
+.articles {
+  .articles-nav {
+    overflow: hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    ul {
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      li {
+        display: inline-block;
+        padding: 0.3125rem 0.625rem;
+        color: #888;
+        cursor: pointer;
+        &.active {
+          color: $MC;
+          border-bottom: 1px solid $MC;
+        }
+      }
+    }
+  }
+  .articles-list {
+    padding: 0.9375rem;
+    ul {
+      li {
+        display: flex;
+        padding-bottom: 0.9375rem;
+        margin-bottom: 0.9375rem;
+        border-bottom: 1px solid #eee;
+        .img-prev {
+          width: 10rem;
+          height: 7.5rem;
+          background-size: cover;
+          border-radius: 5px;
+          border: 1px solid #eee;
+        }
+        .cont-prev {
+          width: calc(100% - 10.9375rem);
+          margin-right: 0.9375rem;
+          .title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 0.9375rem;
+          }
+          .desc{
+            font-size: 0.75rem;
+            font-weight: lighter;
+            color: #888;
+            margin-bottom: 0.9375rem;
+          }
+          .time{
+            font-size: 0.75rem;
+            color: #999;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------------------------------
+----------------------------- article Style -----------------------------
+-----------------------------------------------------------------------*/
+.article {
+  padding: 15px;
+  > .title {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  > .meta {
+    font-size: 0.875rem;
+    color: #888;
+  }
+  > .article-desc {
+    padding: 15px 0;
+    color: #999;
+    font-size: 15px;
+    margin-bottom: 0;
+    &:after {
+      display: block;
+      width: 160px;
+      height: 4px;
+      border-radius: 3px;
+      background: #efefef;
+      content: "";
+      margin-top: 1rem;
+    }
+  }
+  > .article-content {
+    width: 100%;
+    font-size: 14px;
+    a {
+      color: $MC;
+      text-decoration: underline;
+    }
+    .dp-highlighter {
+      width: 100%;
+      overflow-x: auto;
+      margin: 15px 0;
+      ol {
+        margin: 0 0 2px 15px;
+        li {
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
