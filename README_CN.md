@@ -47,33 +47,33 @@ npm run build
 
 > 4. 专题详情页显示专题内容。 [Jump](#专题详情) 「ver: 0.2」
 
-> 5. 更多功能正在开发中...
+> 5. 更多功能正在开发中 ...
 
 ## 预览界面
 ### 首页
 ![首页](./src/assets/previews/home.png)
 
-[返回](#VueWPress)
+[返回](#vuewpress)
 
 ---
 
 ### 文章
 ![文章](./src/assets/previews/article.png)
 
-[返回](#VueWPress)
+[返回](#vuewpress)
 
 ---
 
 ### 专题中心
 ![专题中心](./src/assets/previews/topic.png)
 
-[返回](#VueWPress)
+[返回](#vuewpress)
 
 ---
 
 ### 专题详情
 ![专题详情](./src/assets/previews/page.png)
 
-[返回](#VueWPress)
+[返回](#vuewpress)
 
 ---
