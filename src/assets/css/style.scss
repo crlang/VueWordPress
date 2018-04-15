@@ -46,6 +46,12 @@ $UMC: #ff6348;
   padding: 2.5rem 0 3.4375rem 0;
 }
 
+.wrap {
+  max-width: 48rem;
+  min-height: 37.5rem;
+  padding: 0 0.9375rem;
+}
+
 .fixed-header,
 .fixed-footer {
   width: 100%;
@@ -191,7 +197,7 @@ $UMC: #ff6348;
     }
   }
   .articles-list {
-    padding: 0.9375rem;
+    padding: 1.25rem 0;
     ul {
       li {
         display: flex;
@@ -202,6 +208,7 @@ $UMC: #ff6348;
           width: 10rem;
           height: 7.5rem;
           background-size: cover;
+          background-position: center center;
           border-radius: 5px;
           border: 1px solid #eee;
         }
@@ -234,16 +241,16 @@ $UMC: #ff6348;
 ----------------------------- article Style -----------------------------
 -----------------------------------------------------------------------*/
 .article {
-  padding: 15px;
-  > .title {
+  padding: 0.9375rem 0;
+  div > .title {
     font-size: 1.5rem;
     color: #333;
   }
-  > .meta {
+  div > .meta {
     font-size: 0.875rem;
     color: #888;
   }
-  > .article-desc {
+  .article-desc {
     padding: 15px 0;
     color: #999;
     font-size: 15px;
@@ -258,9 +265,12 @@ $UMC: #ff6348;
       margin-top: 1rem;
     }
   }
-  > .article-content {
+  .article-content {
     width: 100%;
     font-size: 14px;
+    > p {
+      margin-bottom: 0.625rem;
+    }
     a {
       color: $MC;
       text-decoration: underline;
@@ -276,5 +286,69 @@ $UMC: #ff6348;
         }
       }
     }
+  }
+}
+
+/*-----------------------------------------------------------------------
+----------------------------- article Style -----------------------------
+-----------------------------------------------------------------------*/
+.topic {
+  padding: 1.25rem 0;
+  ul {
+    li {
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+      border-bottom: 1px solid #eee;
+      &::after {
+        display: block;
+        content: "\2022";
+        position: absolute;
+        left: calc(50% - 1.3125rem);
+        bottom: -0.5625rem;
+        width: 2.625rem;
+        height: 1.125rem;
+        margin: auto;
+        text-align: center;
+        font-size: 1.125rem;
+        line-height: 1;
+        color: #999;
+        background: #fff;
+      }
+      .thumb {
+        max-height: 18.75rem;
+        overflow: hidden;
+        img {
+
+        }
+      }
+      .title {
+        font-size: 1rem;
+        font-weight: bolder;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.page {
+  padding: 1.25rem 0;
+  div > .title {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  div > .meta {
+    font-size: .875rem;
+    color: #888;
+    text-align: center;
+    padding-bottom: 1.875rem;
+    margin-bottom: 1.875rem;
+    border-bottom: 1px dashed #ccc;
+  }
+  .page-content {
+    margin-top: 0.9375rem;
   }
 }

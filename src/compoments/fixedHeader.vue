@@ -2,28 +2,28 @@
   <div class="fixed-header">
     <div class="top-bar">
       <div class="pg-back"><i class="iconfont icon-back" @click="backPage"></i></div>
-      <div class="pg-title">{{showPGTitle}}</div>
-      <div class="pg-nav" v-if="PGNav" @click="showPGNav()"><i class="iconfont icon-lists2"></i></div>
+      <div class="pg-title" v-html="showPGTitle"></div>
+      <div class="pg-nav" v-if="PGNav" @click="showPGNav()"><i class="iconfont icon-list"></i></div>
     </div>
     <div class="pg-nav-content" v-if="PGNav && PGNavContent" :class="{show : PGNavShow}">
       <div class="weui-cells">
-        <a class="weui-cell weui-cell_access" href="javascript:;">
+        <a class="weui-cell weui-cell_access" href="javascript:;" @click="goHome">
           <div class="weui-cell__bd">
-              <p>首页</p>
+              <p>{{Tranhome}}</p>
           </div>
           <div class="weui-cell__ft">
           </div>
         </a>
         <a class="weui-cell weui-cell_access" href="javascript:;">
           <div class="weui-cell__bd">
-            <p>搜索</p>
+            <p>{{Transearch}}</p>
           </div>
           <div class="weui-cell__ft">
           </div>
         </a>
         <a class="weui-cell weui-cell_access" href="javascript:;">
           <div class="weui-cell__bd">
-            <p>关于</p>
+            <p>{{Tranabout}}</p>
           </div>
           <div class="weui-cell__ft">
           </div>
@@ -38,6 +38,9 @@
     name: "fixed-header",
     data() {
       return {
+        Tranhome: this.PGTitle.home,
+        Transearch: this.PGTitle.search,
+        Tranabout: this.PGTitle.about,
         PGNav: true,
         PGNavContent: false,
         PGNavShow: false
@@ -47,7 +50,6 @@
     },
     computed: {
       showPGTitle() {
-        console.log("666",this.$store);
         return this.$store.state.title;
       }
     },
@@ -57,6 +59,11 @@
         setTimeout(() => {
           this.PGNavShow = !this.PGNavShow;
         }, 100);
+      },
+      goHome(){
+        this.$router.push('/');
+        this.isHome = true;
+        this.PGNavShow = false;
       },
       backPage(){
         this.$router.go(-1);

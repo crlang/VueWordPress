@@ -1,12 +1,15 @@
 import axios from "axios";
 
-/* WordPress Site URL */
+/* default chinese, options: chinese english */
+export let siteLanguage = 'chinese';
+/* WordPress site URL, do not add http:// */
 export let WPBlogSiteUrl = "wordpress.com";
-/* If The Site Is HTTPS*/
+/* if true, the site mush be HTTPS protocol*/
 const siteIsSafe = false;
 
-/*!!! danger !!!*/
-/*!!! ojbk, do not modify !!!*/
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!! danger !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*!!!!!!!!!!!!!!!!!!!!! ojbk , do not modify !!!!!!!!!!!!!!!!!!!!!*/
 if (siteIsSafe) {
   WPBlogSiteUrl = "https://" + WPBlogSiteUrl;
 }else{
