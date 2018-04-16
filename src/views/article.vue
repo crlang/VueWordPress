@@ -16,6 +16,7 @@
 
 <script>
 import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
+// import weui from "weui.js";
 export default {
   data() {
     return {
@@ -47,15 +48,29 @@ export default {
     },
 
     // get artile
-    // get -> posts/{aritlce.id}
-    /* _embed:     if true, output article featured image
+    // get -> posts
+    /* 
+     * id:     *this article id
+     * _embed: if true, output article featured image
     */
     getArticle() {
-      let ids = this.$route.params.id;
-      apiUrl.get("posts/"+ids).then(res => {
+      this.weui.loading(this.PGTitle.loading);
+
+      apiUrl.get("posts/" + this.$route.params.id).then(res => {
         this.showPGConfig(res.data.title.rendered);
         res.data.date = this.formatTime(res.data.date);
         this.articleData = res.data;
+        this.weui.loading().hide();
+      }).catch(err => {
+        console.log("err",err.response);
+        if(err.response) {
+          if (err.response.status !== 200) {
+            this.weui.topTips(err.response.data.message,3000);
+          }
+        }else{
+          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+        }
+        this.weui.loading().hide();
       });
     }
   }

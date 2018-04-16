@@ -1,6 +1,10 @@
 <template>
   <div class="articles">
-    <div class="articles-nav">
+    <swiper :options="swiperOption">
+      <swiper-slide v-for="item in swiperStickyData" :key="item.id"><img :src="item.featured_media" alt="item.slug" /></swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
+    <div class="articles-nav" v-show="categoriesData.length > 0">
       <ul>
         <li :class="{'active': active === null}" @click="homeMy()">{{Tran_Home}}</li><li v-for="(item,index) in categoriesData" @click="categorie(index)" :class="{ 'active': active == index }" :key="index">{{item.name}}</li>
       </ul>
@@ -14,15 +18,14 @@
               <div class="desc" v-html="item.excerpt.rendered"></div>
               <div class="time" v-text="item.date"></div>
             </div>
-            <div class="img-prev" :style="{backgroundImage:'url(' + getThumbnail(item) + ')'}"></div>
+            <div class="img-prev" :style="{backgroundImage:'url('+ item.featured_media +')'}"></div>
           </li>
         </ul>
-        <a href="javascript:;" class="weui-btn weui-btn_default" v-if="loadMore"><i class="weui-loading"></i>{{Tran_loading}}</a>
-        <div v-else>
-          <div class="weui-loadmore weui-loadmore_line" v-if="noneMore">
+        <div class="list-loading">
+          <a href="javascript:;" class="weui-btn weui-btn_default" @click="getMore" v-if="loadMore">{{Tran_loadMore}}</a>
+          <div class="weui-loadmore weui-loadmore_line" v-else>
             <span class="weui-loadmore__tips">{{Tran_noneMore}}</span>
           </div>
-          <a href="javascript:;" class="weui-btn weui-btn_default" @click="needMore" v-else>{{Tran_loadMore}}</a>
         </div>
       </div>
     </div>
@@ -31,29 +34,36 @@
 
 <script>
 import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
-import axios from "axios";
+import weui from "weui.js";
+
 export default {
   data() {
     return {
+      swiperOption: {
+        pagination: {
+          el: '.swiper-pagination'
+        }
+      },
+      swiperStickyData: [],
       articleData: [],
+      Tran_Home: this.PGTitle.home,
+      Tran_noneMore: this.PGTitle.noneMore,
+      Tran_loadMore: this.PGTitle.loadMore,
+      loadMore: false,
       pages: {
+        page_count: 0,
         page: 1,
         per_page: 5
       },
       categories: null,
       categoriesData: [],
-      Tran_Home: this.PGTitle.home,
-      Tran_loading: this.PGTitle.loading,
-      Tran_noneMore: this.PGTitle.noneMore,
-      Tran_loadMore: this.PGTitle.loadMore,
       active: null,
-      noneMore: false,
-      titleLength: 30,
-      loadMore: false
+      titleLength: 30
     };
   },
   mounted: function() {
     this.showPGConfig();
+    this.getStickyPosts();
     this.getArticleList();
     this.getCategories();
   },
@@ -68,12 +78,14 @@ export default {
 
     // get artile list
     // get -> posts
-    /* page:       *number
-       per_page:   *number
-       categories: categories id
+    /* page:       number
+       per_page:   number
+       categories: each categories id
        _embed:     if true, output article featured image
     */
     getArticleList() {
+      this.weui.loading(this.PGTitle.loading);
+
       apiUrl.get("posts",{
         params: {
           _embed: true,
@@ -82,8 +94,8 @@ export default {
           categories: this.categories
         }
       }).then(res => {
-        console.log(res.data);
-        this.onShowLoading();
+        console.log('res',res);
+
         for (let i in res.data) {
           if (res.data.hasOwnProperty(i)) {
             res.data[i].date = this.formatTime(res.data[i].date);
@@ -92,46 +104,66 @@ export default {
             }
           }
         }
-        this.articleData = this.articleData.concat(res.data);
-        if(res.data.length < this.pages.per_page) {
-          this.loadMore = false;
-          this.noneMore = true;
-          // return false;
+
+        let newRes = this.replaceFeaturesImg(res.data);
+        this.articleData = this.articleData.concat(newRes);
+        if (this.pages.page_count === 0) {
+          this.pages.page_count = parseInt(res.headers['x-wp-totalpages']);
+        }
+        if(this.pages.page_count > 1) {
+          this.loadMore = true;
         }else{
           this.loadMore = false;
-          this.noneMore = false;
         }
+        this.weui.loading().hide();
       }).catch(err => {
-        if(err.response.data.code === "rest_post_invalid_page_number"){
-          this.loadMore = false;
-          this.noneMore = true;
-          this.onShowLoading();
-          return false;
+        console.log("err.",err.response);
+        if(err.response) {
+          if (err.response.status !== 200) {
+            this.weui.topTips(err.response.data.message,3000);
+          }
+        }else{
+          this.weui.topTips(this.PGTitle.unknownMistake,3000);
         }
+        this.weui.loading().hide();
       });
-      this.onShowLoading();
     },
 
-    getThumbnail(item) {
-      let defaultIMG = '/src/assets/images/logo.png';
-      if (item._embedded['wp:featuredmedia'] === undefined) {
-        return defaultIMG;
-      }else{
-        if (item._embedded['wp:featuredmedia'][0].source_url !== undefined) {
-          return WPBlogSiteUrl + item._embedded['wp:featuredmedia'][0]['source_url'];
-        }else{
-          if (item._embedded['wp:featuredmedia'][0].data.status === 404) {
-            return defaultIMG;
-          }
+    // get sticky artile list
+    // get -> posts
+    /* page:       number
+       per_page:   number
+       sticky:     *boolean
+       categories: each categories id
+       _embed:     *boolean if true, output article featured image
+    */
+    getStickyPosts() {
+      apiUrl.get("posts/",{
+        params: {
+          _embed: true,
+          sticky: true,
+          page: 1,
+          per_page: 5
         }
-      }
+      }).then(res => {
+        let newRes = this.replaceFeaturesImg(res.data);
+        this.swiperStickyData = newRes;
+      }).catch(err => {
+        if(err.response) {
+          if (err.response.status !== 200) {
+            this.weui.topTips(err.response.data.message,3000);
+          }
+        }else{
+          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+        }
+        this.weui.loading().hide();
+      });
     },
 
     // go to article
     viewArticle(index) {
-      let ids = this.articleData[index].id;
       this.$router.push({
-        path: "../article/" + ids
+        path: "../article/" + this.articleData[index].id
       });
     },
 
@@ -147,27 +179,25 @@ export default {
     categorie(index) {
       this.categories = this.categoriesData[index].id;
       this.pages.page = 1;
+      this.pages.page_count = 0;
       this.active = index;
       this.articleData = [];
       this.getArticleList();
     },
 
-    // show more article
-    needMore() {
+    // show more data
+    getMore() {
       this.pages.page += 1;
+      this.pages.page_count -= 1;
       this.loadMore = true;
       this.getArticleList();
-    },
-
-    // loading display
-    onShowLoading(val) {
-      this.$emit("xxxloading",val);
     },
 
     // if click home
     homeMy(){
       this.pages.page = 1;
       this.active = null;
+      this.categories = null;
       this.articleData = [];
       this.getArticleList();
     }

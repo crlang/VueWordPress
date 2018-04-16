@@ -6,14 +6,21 @@ import pageList from '../views/pages.vue';
 import page from '../views/page.vue';
 import post from '../views/post.vue';
 import tags from '../views/tags.vue';
+import tag from '../views/tag.vue';
 import member from '../views/member.vue';
 
 Vue.use(Router);
 
 export default new Router({
+  linkActiveClass: "weui-bar__item_on",
   routes: [
     {
       path: '/',
+      redirect: '/home'
+    },
+    {
+      path: '/home',
+      name: 'home',
       component: ArticleList
     },
     {
@@ -22,6 +29,7 @@ export default new Router({
     },
     {
       path: '/topic',
+      name: 'topic',
       component: pageList
     },
     {
@@ -30,14 +38,21 @@ export default new Router({
     },
     {
       path: '/post',
+      name: 'post',
       component: post
     },
     {
       path: '/tags',
+      name: 'tags',
       component: tags
     },
     {
+      path: '/tag/:id',
+      component: tag
+    },
+    {
       path: '/member',
+      name: 'member',
       component: member
     }
   ]

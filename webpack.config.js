@@ -109,7 +109,7 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
-      filename: 'style.css',
+      filename: './css/style.css',
       allChunks: true
     }),
     new HTMLPlugin({

@@ -44,7 +44,7 @@ npm run build
 
 > 3. Show topic on the topic page. [jump](#topic) 「ver: 0.2」
 
-> 4. Show topic detail on the detail page. [jump](#]page) 「ver: 0.2」
+> 4. Show topic detail on the detail page. [jump](#page) 「ver: 0.2」
 
 > 5. More features are in development ...
 

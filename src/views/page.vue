@@ -30,12 +30,24 @@ export default {
     this.showPGConfig();
     this.getPage();
   },
+  computed: {
+    slug() {
+      return this.$route.params.slug;
+    }
+  },
   methods: {
     showPGConfig(data){
       this.$store.commit('newTitle', data);// page title
       this.$store.commit('showFooter', false);// footer if show
     },
+
+    // get page content
+    // get -> pages
+    /* slug: *this page slug
+    */
     getPage() {
+      this.weui.loading(this.PGTitle.loading);
+
       apiUrl.get("pages",{
         params: {
           slug: this.slug,
@@ -45,14 +57,18 @@ export default {
         this.showPGConfig(res.data[0].title.rendered);
         res.data[0].date = this.formatTime(res.data[0].date);
         this.pageData = res.data[0];
+        this.weui.loading().hide();
       }).catch(err => {
-        console.log(err);
+        console.log("err",err.response);
+        if(err.response) {
+          if (err.response.status !== 200) {
+            this.weui.topTips(err.response.data.message,3000);
+          }
+        }else{
+          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+        }
+        this.weui.loading().hide();
       });
-    }
-  },
-  computed: {
-    slug() {
-      return this.$route.params.slug;
     }
   }
 };

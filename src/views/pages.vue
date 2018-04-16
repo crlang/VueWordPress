@@ -3,10 +3,16 @@
     <div class="wrap">
       <ul>
         <router-link v-for="item in topicData" :key="item.id" :to="'topic/' + item.slug" tag="li">
-        <div class="thumb"><img :src='item._embedded["wp:featuredmedia"][0].source_url' alt=""></div>
+        <div class="thumb"><img :src='item.featured_media' alt=""></div>
         <div class="title" v-html="item.title.rendered"></div>
         </router-link>
       </ul>
+      <div class="list-loading">
+        <a href="javascript:;" class="weui-btn weui-btn_default" @click="getMore" v-if="loadMore">{{Tran_loadMore}}</a>
+        <div class="weui-loadmore weui-loadmore_line" v-else>
+          <span class="weui-loadmore__tips">{{Tran_noneMore}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +23,15 @@ import {WPBlogSiteUrl,apiUrl} from '../utils/api.js';
 export default {
   data() {
     return {
-      topicData: null,
+      topicData: [],
+      Tran_noneMore: this.PGTitle.noneMore,
+      Tran_loadMore: this.PGTitle.loadMore,
+      loadMore: false,
+      pages: {
+        page_count: 0,
+        page: 1,
+        per_page: 5
+      },
       siteUrl: WPBlogSiteUrl
     };
   },
@@ -30,25 +44,61 @@ export default {
       this.$store.commit('newTitle', this.PGTitle.topic);// page title
       this.$store.commit('showFooter', true);// footer if show
     },
+
+    // get topic
+    // get -> topic
+    /* page:       number, default 1
+       per_page:   number, default 10
+       exclude:    exclude some id
+       orderby:    some way by order, options: [id,include,name,slug,include_slugs,term_group,description,count]
+       order:      default asc, options: [asc,desc]
+       _embed:     if true, output article featured image
+    */
     getTopic() {
+      this.weui.loading(this.PGTitle.loading);
+
       apiUrl.get('pages',{
         params: {
+          page: this.pages.page,
+          per_page: this.pages.per_page,
           _embed: true
         }
       }).then(res => {
         console.log(res.data);
-        let newImgData = [];
-        for (const i in res.data) {
-          if (res.data.hasOwnProperty(i)) {
-            if (res.data[i]._embedded["wp:featuredmedia"] !== undefined) {
-              res.data[i]._embedded["wp:featuredmedia"][0].source_url = this.siteUrl + res.data[i]._embedded["wp:featuredmedia"][0].source_url;
-              newImgData.push(res.data[i]);
-            }
-          }
+
+        let newRes = this.replaceFeaturesImg(res.data);
+        this.topicData = this.topicData.concat(newRes);
+
+        if (this.pages.page_count === 0) {
+          this.pages.page_count = parseInt(res.headers['x-wp-totalpages']);
         }
-        this.topicData = newImgData;
+        if(this.pages.page_count > 1) {
+          this.loadMore = true;
+        }else{
+          this.loadMore = false;
+        }
+
+        this.weui.loading().hide();
+      }).catch(err => {
+        console.log("err",err);
+        if(err.response) {
+          if (err.response.status !== 200) {
+            this.weui.topTips(err.response.data.message,3000);
+          }
+        }else{
+          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+        }
+        this.weui.loading().hide();
       });
     },
+
+    // show more data
+    getMore() {
+      this.pages.page += 1;
+      this.pages.page_count -= 1;
+      this.loadMore = true;
+      this.getTopic();
+    }
   }
 };
 </script>

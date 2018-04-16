@@ -1,5 +1,6 @@
 import {WPBlogSiteUrl, apiUrl, siteLanguage} from "./api.js";
 import as from "axios";
+import weuijs from "weui.js";
 
 exports.install = function (Vue, options) {
   Vue.prototype.formatTime = formatTime;
@@ -7,6 +8,8 @@ exports.install = function (Vue, options) {
   Vue.prototype.PGTitle = AllPageTitle;
   Vue.prototype.siteConfig = siteConfig;
   Vue.prototype.replaceImgUrl = replaceImgUrl;
+  Vue.prototype.weui = weuijs;
+  Vue.prototype.replaceFeaturesImg = replaceFeaturesImg;
 };
 
 /*----------------------------------------
@@ -27,17 +30,40 @@ function formatTTime(val) {
   return resule;
 }
 
-// Add website URL prefix for picture url
+// Add website URL prefix for url
 function replaceImgUrl(strs){
-  let hzreg = /((href|src)="\/media)/g; // wordpress media path !!!
+  let hzreg = /((href|src)="\/)/g; // wordpress media path !!!
   var st = strs.replace(hzreg,function(a){
-    if (a === 'href="/media') {
-      return 'href="' + WPBlogSiteUrl + '/media';
-    }else if(a === 'src="/media') {
-      return 'src="' + WPBlogSiteUrl + '/media';
+    if (a === 'href="/') {
+      return 'href="' + WPBlogSiteUrl + '/';
+    }else if(a === 'src="/') {
+      return 'src="' + WPBlogSiteUrl + '/';
     }
   });
   return st;
+}
+
+// replace Features Img
+function replaceFeaturesImg(data) {
+  let newImgData = [],
+    defaultIMG = '/src/assets/images/logo.png';
+  for (const i in data) {
+    if (data.hasOwnProperty(i)) {
+      if (data[i]._embedded["wp:featuredmedia"] !== undefined) {
+        if (data[i]._embedded["wp:featuredmedia"][0].code === "rest_post_invalid_id") {
+          data[i].featured_media = defaultIMG;
+        }else{
+          data[i].featured_media = data[i]._embedded["wp:featuredmedia"][0].source_url;
+        }
+      }else{
+        data[i].featured_media = defaultIMG;
+      }
+      newImgData.push(data[i]);
+    }
+  }
+  console.log("n",newImgData);
+
+  return newImgData;
 }
 
 /*----------------------------------------
@@ -76,6 +102,7 @@ if (siteLanguage === 'english') {
     loading: "Loading...",
     noneMore: "No data",
     loadMore: "Load More",
+    unknownMistake: "Unknown Mistake",
     fixedfooter: {
       home: "home",
       topic: "topic",
@@ -100,6 +127,7 @@ if (siteLanguage === 'english') {
     loading: "正在加载",
     noneMore: "暂无数据",
     loadMore: "加载更多",
+    unknownMistake: "未知错误",
     fixedfooter: {
       home: "首页",
       topic: "专题",
@@ -109,5 +137,3 @@ if (siteLanguage === 'english') {
     }
   };
 }
-
-

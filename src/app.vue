@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <fixed_header></fixed_header>
-    <router-view v-on:xxxloading = "onShowLoadingChange"></router-view>
-    <Loading :loading="loading"></Loading>
+    <router-view></router-view>
     <fixed_footer></fixed_footer>
   </div>
 </template>
@@ -15,7 +14,6 @@ export default {
   name: "app",
   data() {
     return {
-      loading: false
     };
   },
   components: {
@@ -23,12 +21,8 @@ export default {
     fixed_footer
   },
   mounted: function () {
-    this.isHome = true;
   },
   methods: {
-    onShowLoadingChange() {
-      this.loading = !this.loading;
-    }
   }
 };
 </script>

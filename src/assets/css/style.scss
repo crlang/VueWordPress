@@ -32,11 +32,24 @@ $z-lod:  997;
  *    主色：#1e90ff
  *    辅色：#a4b0be
  *    反色：#ff6348
+ *--情景色
+ * 危险： #c0392b => #e74c3c
+ * 警告： #d35400 => #e67e22
+ * 一般： #7f8c8d => #95a5a6
+ * 安全： #27ae6d => #2ecc71
  *
  */
 $MC:  #1e90ff;
 $AC:  #a4b0be;
 $UMC: #ff6348;
+$dangM: #c0392b;
+$dangN: #e74c3c;
+$wranM: #d35400;
+$wranN: #e67e22;
+$infoM: #7f8c8d;
+$infoN: #95a5a6;
+$succM: #27ae6d;
+$succN: #2ecc71;
 
 /*-----------------------------------------------------------------------
 ----------------------------- Global  Style -----------------------------
@@ -170,7 +183,6 @@ $UMC: #ff6348;
 /*-----------------------------------------------------------------------
 ------------------------------ Home  Style ------------------------------
 -----------------------------------------------------------------------*/
-
 .articles {
   .articles-nav {
     overflow: hidden;
@@ -318,6 +330,7 @@ $UMC: #ff6348;
       .thumb {
         max-height: 18.75rem;
         overflow: hidden;
+        text-align: center;
         img {
 
         }
@@ -351,4 +364,46 @@ $UMC: #ff6348;
   .page-content {
     margin-top: 0.9375rem;
   }
+}
+
+/*-----------------------------------------------------------------------
+--------------------------------- Tags ----------------------------------
+-----------------------------------------------------------------------*/
+.tags {
+  .tags-content {
+    margin: 0.9375rem 0;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        padding: 0.625rem;
+        margin: 0 0.3125rem 0.9375rem;
+        background: $infoN;
+        color: #fff;
+        border: 1px solid $infoM;
+        border-radius: 50%;
+        transition: all 0.25s ease-in;
+      }
+    }
+  }
+}
+.articles {
+  .tag-content {
+    ul {
+      li {
+        .cont-prev {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------------------------------
+-------------------------- fixed compoment css --------------------------
+-----------------------------------------------------------------------*/
+.weui-toptips.weui-toptips_warn {
+  padding: 10px;
+  background: linear-gradient(120deg, $dangM, $dangN)
 }
