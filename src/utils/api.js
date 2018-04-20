@@ -1,7 +1,7 @@
 import axios from "axios";
 
-/* WordPress site URL, do not add http:// */
-export let WPBlogSiteUrl = "wordpress.com";
+/* Your WordPress site URL, do not add http:// */
+export let WPBlogSiteUrl = "wpdemo.cc";
 /* default chinese, options: chinese english */
 export let siteLanguage = 'chinese';
 /* if true, the site mush be HTTPS protocol*/

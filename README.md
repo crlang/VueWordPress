@@ -42,36 +42,54 @@ npm run build
 
 > 2. Show post on the article page. [jump](#article) 「ver: 0.1」
 
-> 3. Show topic on the topic page. [jump](#topic) 「ver: 0.2」
+> 3. Show topic on the topic page. [jump](#topic) 「ver: 0.12」
 
-> 4. Show topic detail on the detail page. [jump](#page) 「ver: 0.2」
+> 4. Show topic detail on the detail page. [jump](#page) 「ver: 0.12」
 
-> 5. More features are in development ...
+> 5. Show tags on the tags page. [jump](#tags) 「ver: 0.16」
+
+> 6. Show tag detail on the detail page. [jump](#tag) 「ver: 0.16」
+
+> 7. More features are in development ...
 
 ## Preview Me
 ### Home
-![home](./src/assets/previews/home.png)
+![home](./previews/home.png)
 
 [Back Up](#vuewpress)
 
 ---
 
 ### Article
-![home](./src/assets/previews/article.png)
+![home](./previews/article.png)
 
 [Back Up](#vuewpress)
 
 ---
 
 ### Topic
-![topic](./src/assets/previews/topic.png)
+![topic](./previews/topic.png)
 
 [Back Up](#vuewpress)
 
 ---
 
 ### Page
-![page](./src/assets/previews/page.png)
+![page](./previews/page.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### Tags
+![page](./previews/tags.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### Tag
+![page](./previews/tag.png)
 
 [Back Up](#vuewpress)
 

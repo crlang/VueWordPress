@@ -1,13 +1,19 @@
 <template>
   <div class="articles">
-    <swiper :options="swiperOption">
-      <swiper-slide v-for="item in swiperStickyData" :key="item.id"><img :src="item.featured_media" alt="item.slug" /></swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-    </swiper>
+    <div class="banner">
+      <div class="wrap" style="padding:0;">
+        <swiper :options="swiperOption" style="text-align: center;">
+          <swiper-slide v-for="item in swiperStickyData" :key="item.id"><img :src="item.featured_media" alt="item.slug" /></swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </div>
+    </div>
     <div class="articles-nav" v-show="categoriesData.length > 0">
+      <div class="wrap">
       <ul>
         <li :class="{'active': active === null}" @click="homeMy()">{{Tran_Home}}</li><li v-for="(item,index) in categoriesData" @click="categorie(index)" :class="{ 'active': active == index }" :key="index">{{item.name}}</li>
       </ul>
+      </div>
     </div>
     <div class="wrap">
       <div class="articles-list">

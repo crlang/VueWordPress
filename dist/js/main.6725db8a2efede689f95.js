@@ -62,7 +62,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "271f4eb55ab68e1e91be"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6725db8a2efede689f95"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -2756,6 +2756,12 @@ var _weui2 = _interopRequireDefault(_weui);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12279,45 +12285,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "articles" },
-    [
-      _c(
-        "swiper",
-        { attrs: { options: _vm.swiperOption } },
-        [
-          _vm._l(_vm.swiperStickyData, function(item) {
-            return _c("swiper-slide", { key: item.id }, [
-              _c("img", {
-                attrs: { src: item.featured_media, alt: "item.slug" }
-              })
-            ])
-          }),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "swiper-pagination",
-            attrs: { slot: "pagination" },
-            slot: "pagination"
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
+  return _c("div", { staticClass: "articles" }, [
+    _c("div", { staticClass: "banner" }, [
       _c(
         "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.categoriesData.length > 0,
-              expression: "categoriesData.length > 0"
-            }
-          ],
-          staticClass: "articles-nav"
-        },
+        { staticClass: "wrap", staticStyle: { padding: "0" } },
         [
+          _c(
+            "swiper",
+            {
+              staticStyle: { "text-align": "center" },
+              attrs: { options: _vm.swiperOption }
+            },
+            [
+              _vm._l(_vm.swiperStickyData, function(item) {
+                return _c("swiper-slide", { key: item.id }, [
+                  _c("img", {
+                    attrs: { src: item.featured_media, alt: "item.slug" }
+                  })
+                ])
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "swiper-pagination",
+                attrs: { slot: "pagination" },
+                slot: "pagination"
+              })
+            ],
+            2
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.categoriesData.length > 0,
+            expression: "categoriesData.length > 0"
+          }
+        ],
+        staticClass: "articles-nav"
+      },
+      [
+        _c("div", { staticClass: "wrap" }, [
           _c(
             "ul",
             [
@@ -12351,75 +12367,72 @@ var render = function() {
             ],
             2
           )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "wrap" }, [
-        _c("div", { staticClass: "articles-list" }, [
-          _c(
-            "ul",
-            _vm._l(_vm.articleData, function(item, index) {
-              return _c(
-                "li",
-                {
-                  key: index,
-                  on: {
-                    click: function($event) {
-                      _vm.viewArticle(index)
-                    }
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "wrap" }, [
+      _c("div", { staticClass: "articles-list" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.articleData, function(item, index) {
+            return _c(
+              "li",
+              {
+                key: index,
+                on: {
+                  click: function($event) {
+                    _vm.viewArticle(index)
                   }
-                },
-                [
-                  _c("div", { staticClass: "cont-prev" }, [
-                    _c("div", {
-                      staticClass: "title",
-                      domProps: { innerHTML: _vm._s(item.title.rendered) }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      staticClass: "desc",
-                      domProps: { innerHTML: _vm._s(item.excerpt.rendered) }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      staticClass: "time",
-                      domProps: { textContent: _vm._s(item.date) }
-                    })
-                  ]),
+                }
+              },
+              [
+                _c("div", { staticClass: "cont-prev" }, [
+                  _c("div", {
+                    staticClass: "title",
+                    domProps: { innerHTML: _vm._s(item.title.rendered) }
+                  }),
                   _vm._v(" "),
                   _c("div", {
-                    staticClass: "img-prev",
-                    style: {
-                      backgroundImage: "url(" + item.featured_media + ")"
-                    }
+                    staticClass: "desc",
+                    domProps: { innerHTML: _vm._s(item.excerpt.rendered) }
+                  }),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "time",
+                    domProps: { textContent: _vm._s(item.date) }
                   })
-                ]
+                ]),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "img-prev",
+                  style: { backgroundImage: "url(" + item.featured_media + ")" }
+                })
+              ]
+            )
+          })
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "list-loading" }, [
+          _vm.loadMore
+            ? _c(
+                "a",
+                {
+                  staticClass: "weui-btn weui-btn_default",
+                  attrs: { href: "javascript:;" },
+                  on: { click: _vm.getMore }
+                },
+                [_vm._v(_vm._s(_vm.Tran_loadMore))]
               )
-            })
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "list-loading" }, [
-            _vm.loadMore
-              ? _c(
-                  "a",
-                  {
-                    staticClass: "weui-btn weui-btn_default",
-                    attrs: { href: "javascript:;" },
-                    on: { click: _vm.getMore }
-                  },
-                  [_vm._v(_vm._s(_vm.Tran_loadMore))]
-                )
-              : _c("div", { staticClass: "weui-loadmore weui-loadmore_line" }, [
-                  _c("span", { staticClass: "weui-loadmore__tips" }, [
-                    _vm._v(_vm._s(_vm.Tran_noneMore))
-                  ])
+            : _c("div", { staticClass: "weui-loadmore weui-loadmore_line" }, [
+                _c("span", { staticClass: "weui-loadmore__tips" }, [
+                  _vm._v(_vm._s(_vm.Tran_noneMore))
                 ])
-          ])
+              ])
         ])
       ])
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27905,8 +27918,8 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* WordPress site URL, do not add http:// */
-var WPBlogSiteUrl = exports.WPBlogSiteUrl = "wordpress.com";
+/* Your WordPress site URL, do not add http:// */
+var WPBlogSiteUrl = exports.WPBlogSiteUrl = "wpdemo.cc";
 /* default chinese, options: chinese english */
 var siteLanguage = exports.siteLanguage = 'chinese';
 /* if true, the site mush be HTTPS protocol*/
@@ -28680,4 +28693,4 @@ if (true) {(function () {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=main.271f4eb55ab68e1e91be.js.map
+//# sourceMappingURL=main.6725db8a2efede689f95.js.map

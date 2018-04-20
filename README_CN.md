@@ -43,37 +43,55 @@ npm run build
 
 > 2. 内容页显示文章详情。 [Jump](#文章) 「ver: 0.1」
 
-> 3. 专题页显示页面专题。 [Jump](#专题中心) 「ver: 0.2」
+> 3. 专题页显示页面专题。 [Jump](#专题中心) 「ver: 0.12」
 
-> 4. 专题详情页显示专题内容。 [Jump](#专题详情) 「ver: 0.2」
+> 4. 专题详情页显示专题内容。 [Jump](#专题详情) 「ver: 0.12」
+
+> 3. 标签云页显示标签集合。 [Jump](#标签云) 「ver: 0.16」
+
+> 4. 标签页显示标签相关文章。 [Jump](#标签页) 「ver: 0.16」
 
 > 5. 更多功能正在开发中 ...
 
 ## 预览界面
 ### 首页
-![首页](./src/assets/previews/home.png)
+![首页](./previews/home.png)
 
 [返回](#vuewpress)
 
 ---
 
 ### 文章
-![文章](./src/assets/previews/article.png)
+![文章](./previews/article.png)
 
 [返回](#vuewpress)
 
 ---
 
 ### 专题中心
-![专题中心](./src/assets/previews/topic.png)
+![专题中心](./previews/topic.png)
 
 [返回](#vuewpress)
 
 ---
 
 ### 专题详情
-![专题详情](./src/assets/previews/page.png)
+![专题详情](./previews/page.png)
 
 [返回](#vuewpress)
+
+---
+
+### 标签云
+![page](./previews/tags.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### 标签页
+![page](./previews/tag.png)
+
+[Back Up](#vuewpress)
 
 ---
