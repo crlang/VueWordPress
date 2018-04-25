@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import home from '../views/home.vue';
 import ArticleList from '../views/articles.vue';
 import Article from '../views/article.vue';
 import pageList from '../views/pages.vue';
@@ -7,6 +8,9 @@ import page from '../views/page.vue';
 import post from '../views/post.vue';
 import tags from '../views/tags.vue';
 import tag from '../views/tag.vue';
+import media from '../views/media.vue';
+import comments from '../views/comments.vue';
+import login from '../views/login.vue';
 import member from '../views/member.vue';
 
 Vue.use(Router);
@@ -21,6 +25,10 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
+      component: home
+    },
+    {
+      path: '/articles',
       component: ArticleList
     },
     {
@@ -51,9 +59,21 @@ export default new Router({
       component: tag
     },
     {
+      path: '/login',
+      component: login
+    },
+    {
       path: '/member',
       name: 'member',
       component: member
+    },
+    {
+      path: '/media',
+      component: media
+    },
+    {
+      path: '/comments',
+      component: comments
     }
   ]
 });

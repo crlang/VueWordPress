@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     showPGConfig(){
-      this.$store.commit('newTitle', this.PGTitle.member);// page title
+      this.$store.commit('newTitle', this.APLang.member);// page title
       this.$store.commit('showFooter', true);// footer if show
     },
   }

@@ -1,5 +1,7 @@
 <template>
   <div class="articles">
+    <home_banner></home_banner>
+    <home_categories></home_categories>
     <div class="articles-nav" v-show="categoriesData.length > 0">
       <div class="wrap">
       <ul>
@@ -19,22 +21,20 @@
             <div class="img-prev" :style="{backgroundImage:'url('+ item.featured_media +')'}"></div>
           </li>
         </ul>
-        <div class="list-loading">
-          <a href="javascript:;" class="weui-btn weui-btn_default" @click="getMore" v-if="loadMore">{{Tran_loadMore}}</a>
-          <div class="weui-loadmore weui-loadmore_line" v-else>
-            <span class="weui-loadmore__tips">{{Tran_noneMore}}</span>
-          </div>
-        </div>
       </div>
       <div class="weui-loadmore weui-loadmore_line" v-else>
         <span class="weui-loadmore__tips">{{this.APLang.noneMore}}</span>
       </div>
+      <home_footer></home_footer>
     </div>
   </div>
 </template>
 
 <script>
 import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
+import home_banner from '../compoments/homeBanner.vue';
+import home_categories from '../compoments/homeCategories.vue';
+import home_footer from "../compoments/homeCopyright.vue";
 import weui from "weui.js";
 
 export default {
@@ -48,7 +48,7 @@ export default {
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 10
+        per_page: 5
       },
       categories: null,
       categoriesData: [],
@@ -57,6 +57,9 @@ export default {
     };
   },
   components: {
+    home_banner: home_banner,
+    home_categories: home_categories,
+    home_footer: home_footer
   },
   mounted: function() {
     this.showPGConfig();
@@ -66,8 +69,10 @@ export default {
   methods: {
     // site config
     showPGConfig(){
-      this.$store.commit('newTitle', this.APLang.articles);// page title
-      this.$store.commit('showFooter', false);// footer if show
+      this.siteConfig(data=>{
+        this.$store.commit('newTitle', data.name);
+      });// page title
+      this.$store.commit('showFooter', true);// footer if show
     },
 
     // get artile list
@@ -110,6 +115,7 @@ export default {
         }else{
           this.loadMore = false;
         }
+
         this.weui.loading().hide();
       }).catch(err => {
         console.log("err.",err.response);

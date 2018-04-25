@@ -3,11 +3,7 @@ import axios from 'axios';
 import App from "./app.vue";
 import store from "./store/index.js";
 
-/*----------------------------------------
------------------  weui  -----------------
-----------------------------------------*/
-import "weui";
-/* weui end */
+
 
 /*----------------------------------------
 ----------------  router  ----------------
@@ -16,6 +12,8 @@ import router from './utils/routers.js';
 Vue.use(router);
 /* router end */
 
+
+
 /*----------------------------------------
 -------  register global function  -------
 ----------------------------------------*/
@@ -23,13 +21,18 @@ import Functions from './utils/utils.js';
 Vue.use(Functions);// Register global functions as plugins
 /* register global function end */
 
+
+
 /*----------------------------------------
 -------------  style assets  -------------
 ----------------------------------------*/
 import "./assets/css/reset.css";
 import "./assets/fonts/iconfont.css";
+import "./assets/css/weui.css";
 import "./assets/css/style.scss";
 /* style assets end */
+
+
 
 /*----------------------------------------
 ----------  Vue Awesome Swiper  ----------
@@ -39,11 +42,15 @@ import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 /* Vue Awesome Swiper end */
 
+
+
 /*----------------------------------------
 --------------  debug mode  --------------
 ----------------------------------------*/
 Vue.config.productionTip = true;
 /* debug mode end */
+
+
 
 /*----------------------------------------
 -------------  axios config  -------------
@@ -58,6 +65,8 @@ axios.interceptors.request.use(
   }
 );
 /* axios config end */
+
+
 
 /*----------------------------------------
 ---------------  new  vue  ---------------

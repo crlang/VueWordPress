@@ -38,7 +38,7 @@ npm run build
 ```
 
 ## What Can I Do ?
-> 1. Show article on the home page. [jump](#home) 「ver: 0.1」
+> 1. Show home on the home page. [jump](#home) 「ver: 0.1」
 
 > 2. Show post on the article page. [jump](#article) 「ver: 0.1」
 
@@ -50,11 +50,24 @@ npm run build
 
 > 6. Show tag detail on the detail page. [jump](#tag) 「ver: 0.16」
 
-> 7. More features are in development ...
+> 7. Show All media on the gallery page. [jump](#media) 「ver: 0.16」
+
+> 8. Show All comment on the comments page. [jump](#comments) 「ver: 0.19」
+
+> 9. Show article on the articles page. [jump](#Articles) 「ver: 0.19」
+
+> 10. More features are in development ...
 
 ## Preview Me
 ### Home
 ![home](./previews/home.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### Articles
+![home](./previews/articles.png)
 
 [Back Up](#vuewpress)
 
@@ -90,6 +103,20 @@ npm run build
 
 ### Tag
 ![page](./previews/tag.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### Media
+![page](./previews/tag.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### Comments
+![page](./previews/comments.png)
 
 [Back Up](#vuewpress)
 

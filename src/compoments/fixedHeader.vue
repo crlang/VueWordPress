@@ -38,9 +38,9 @@
     name: "fixed-header",
     data() {
       return {
-        Tranhome: this.PGTitle.home,
-        Transearch: this.PGTitle.search,
-        Tranabout: this.PGTitle.about,
+        Tranhome: this.APLang.home,
+        Transearch: this.APLang.search,
+        Tranabout: this.APLang.about,
         PGNav: true,
         PGNavContent: false,
         PGNavShow: false
@@ -63,11 +63,11 @@
       goHome(){
         this.$router.push('/');
         this.isHome = true;
-        this.PGNavShow = false;
+        this.showPGNav();
       },
       backPage(){
         this.$router.go(-1);
       }
     }
-  }
+  };
 </script>

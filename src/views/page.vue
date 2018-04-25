@@ -46,7 +46,7 @@ export default {
     /* slug: *this page slug
     */
     getPage() {
-      this.weui.loading(this.PGTitle.loading);
+      this.weui.loading(this.APLang.loading);
 
       apiUrl.get("pages",{
         params: {
@@ -65,7 +65,7 @@ export default {
             this.weui.topTips(err.response.data.message,3000);
           }
         }else{
-          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+          this.weui.topTips(this.APLang.unknownMistake,3000);
         }
         this.weui.loading().hide();
       });

@@ -47,17 +47,30 @@ npm run build
 
 > 4. 专题详情页显示专题内容。 [Jump](#专题详情) 「ver: 0.12」
 
-> 3. 标签云页显示标签集合。 [Jump](#标签云) 「ver: 0.16」
+> 5. 标签云页显示标签集合。 [Jump](#标签云) 「ver: 0.16」
 
-> 4. 标签页显示标签相关文章。 [Jump](#标签页) 「ver: 0.16」
+> 6. 标签页显示标签相关文章。 [Jump](#标签页) 「ver: 0.16」
 
-> 5. 更多功能正在开发中 ...
+> 7. 图库页显示所有媒体文件。 [jump](#图库中心) 「ver: 0.16」
+
+> 8. 言论页显示所有评论。 [jump](#言论中心) 「ver: 0.19」
+
+> 9. 文章列表页显示所有文章。 [jump](#文章列表) 「ver: 0.19」
+
+> 10. 更多功能正在开发中 ...
 
 ## 预览界面
 ### 首页
 ![首页](./previews/home.png)
 
 [返回](#vuewpress)
+
+---
+
+### 文章列表
+![home](./previews/articles.png)
+
+[Back Up](#vuewpress)
 
 ---
 
@@ -91,6 +104,20 @@ npm run build
 
 ### 标签页
 ![page](./previews/tag.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### 图库中心
+![page](./previews/tag.png)
+
+[Back Up](#vuewpress)
+
+---
+
+### 言论中心
+![page](./previews/comments.png)
 
 [Back Up](#vuewpress)
 

@@ -20,8 +20,8 @@ import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
 export default {
   data() {
     return {
-      Tran_author: this.PGTitle.author,
-      Tran_date: this.PGTitle.date,
+      Tran_author: this.APLang.author,
+      Tran_date: this.APLang.date,
       articleData: {
         title: {
           rendered: ''
@@ -49,12 +49,12 @@ export default {
 
     // get artile
     // get -> posts
-    /* 
+    /*
      * id:     *this article id
      * _embed: if true, output article featured image
     */
     getArticle() {
-      this.weui.loading(this.PGTitle.loading);
+      this.weui.loading(this.APLang.loading);
 
       apiUrl.get("posts/" + this.$route.params.id).then(res => {
         this.showPGConfig(res.data.title.rendered);
@@ -68,7 +68,7 @@ export default {
             this.weui.topTips(err.response.data.message,3000);
           }
         }else{
-          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+          this.weui.topTips(this.APLang.unknownMistake,3000);
         }
         this.weui.loading().hide();
       });

@@ -1,9 +1,9 @@
 <template>
-  <div class="tags">
+  <div class="media">
     <div class="wrap">
-      <div class="tags-content">
+      <div class="media-content">
         <ul>
-          <router-link v-for="item in tagsData" :key="item.id" v-html="item.name + '(' + item.count+ ')'" :to="'tag/' + item.id" tag="li" ref="ele"></router-link>
+          <li v-for="item in mediaData" :key="item.id"><img :src="item.source_url" alt="item.slug"></li>
         </ul>
         <div class="list-loading">
           <a href="javascript:;" class="weui-btn weui-btn_default" @click="getMore" v-if="loadMore">{{Tran_loadMore}}</a>
@@ -17,57 +17,52 @@
 </template>
 
 <script>
-import {apiUrl} from '../utils/api.js';
+import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
 
 export default {
   data() {
     return {
-      tagsData: [],
+      mediaData: [],
       Tran_noneMore: this.APLang.noneMore,
       Tran_loadMore: this.APLang.loadMore,
       loadMore: false,
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 33
-      }
+        per_page: 20
+      },
     };
   },
-  created() {
-  },
-  mounted() {
+  mounted: function() {
     this.showPGConfig();
-    this.getTages();
-  },
-  destroyed() {
-
+    this.getMedia();
   },
   methods: {
-    showPGConfig(){
-      this.$store.commit('newTitle', this.APLang.tags);// page title
-      this.$store.commit('showFooter', true);// footer if show
+    showPGConfig(data){
+      this.$store.commit('newTitle', this.APLang.media);
+      this.$store.commit('showFooter', false);// footer if show
     },
-    // get tag list
-    // get -> tags
+
+    // get media list
+    // get -> media
     /* page:       number, default 1
        per_page:   number, default 10
+       exclude:    exclude some id
        orderby:    some way by order, options: [id,include,name,slug,include_slugs,term_group,description,count]
        order:      default asc, options: [asc,desc]
-       _embed:     if true, output article featured image
     */
-    getTages() {
+    getMedia() {
       this.weui.loading(this.APLang.loading);
 
-      apiUrl.get("tags",{
+      apiUrl.get("media",{
         params: {
-          orderby: 'count',
-          order: 'desc',
           page: this.pages.page,
           per_page: this.pages.per_page
         }
       }).then(res => {
         console.log(res);
-        this.tagsData = this.tagsData.concat(res.data);
+        let newRes = res.data;
+        this.mediaData = this.mediaData.concat(newRes);
 
         if (this.pages.page_count === 0) {
           this.pages.page_count = parseInt(res.headers['x-wp-totalpages']);
@@ -77,6 +72,7 @@ export default {
         }else{
           this.loadMore = false;
         }
+
         this.weui.loading().hide();
       }).catch(err => {
         console.log("err",err.response);
@@ -96,8 +92,8 @@ export default {
       this.pages.page += 1;
       this.pages.page_count -= 1;
       this.loadMore = true;
-      this.getTages();
-    },
+      this.getMedia();
+    }
   }
 };
 </script>

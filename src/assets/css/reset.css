@@ -179,6 +179,8 @@ video {
   border: 0;
   font: inherit;
   font-size: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 body {
@@ -204,7 +206,7 @@ a:visited {
 a:hover,
 a:active,
 a:focus {
-  color: #34495e;
+  color: inherit;
 }
 
 blockquote,

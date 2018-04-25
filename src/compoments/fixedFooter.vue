@@ -32,11 +32,11 @@
     name: "fixed-footer",
     data() {
       return {
-        Tran_home: this.PGTitle.fixedfooter.home.toUpperCase(),
-        Tran_topic: this.PGTitle.fixedfooter.topic.toUpperCase(),
-        Tran_post: this.PGTitle.fixedfooter.post.toUpperCase(),
-        Tran_tags: this.PGTitle.fixedfooter.tags.toUpperCase(),
-        Tran_member: this.PGTitle.fixedfooter.member.toUpperCase(),
+        Tran_home: this.APLang.fixedfooter.home.toUpperCase(),
+        Tran_topic: this.APLang.fixedfooter.topic.toUpperCase(),
+        Tran_post: this.APLang.fixedfooter.post.toUpperCase(),
+        Tran_tags: this.APLang.fixedfooter.tags.toUpperCase(),
+        Tran_member: this.APLang.fixedfooter.member.toUpperCase(),
       };
     },
     mounted: function() {

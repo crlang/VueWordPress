@@ -39,7 +39,8 @@ $z-lod:  997;
  * 安全： #27ae6d => #2ecc71
  *
  */
-$MC:  #1e90ff;
+$MC:  #0984e3;
+$MCN: #00cec9;
 $AC:  #a4b0be;
 $UMC: #ff6348;
 $dangM: #c0392b;
@@ -78,7 +79,7 @@ $succN: #2ecc71;
 .fixed-header {
   top: 0;
   .top-bar {
-    background: $MC;
+    background: linear-gradient(120deg,$MC 0,$MCN 100%);
     color: #fff;
     display: flex;
     justify-content: space-between;
@@ -185,6 +186,9 @@ $succN: #2ecc71;
 -----------------------------------------------------------------------*/
 .articles {
   .articles-nav {
+    margin: 10px 0;
+    padding: 0;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     &::-webkit-scrollbar {
       display: none;
@@ -193,12 +197,13 @@ $succN: #2ecc71;
       &::-webkit-scrollbar {
         display: none;
       }
+      margin: auto -0.9375rem;
       display: block;
       overflow-x: auto;
       white-space: nowrap;
       li {
         display: inline-block;
-        padding: 0.3125rem 0.625rem;
+        padding: 0.875rem 0.625rem;
         color: #888;
         cursor: pointer;
         &.active {
@@ -245,6 +250,19 @@ $succN: #2ecc71;
           }
         }
       }
+    }
+  }
+}
+
+/* home categories */
+.home-categories {
+  margin: 0.625rem 0;
+  ul {
+    display: flex;
+    margin: auto -0.9375rem;
+    li {
+      width: 25%;
+      text-align: center;
     }
   }
 }
@@ -331,9 +349,6 @@ $succN: #2ecc71;
         max-height: 18.75rem;
         overflow: hidden;
         text-align: center;
-        img {
-
-        }
       }
       .title {
         font-size: 1rem;
@@ -401,9 +416,76 @@ $succN: #2ecc71;
 }
 
 /*-----------------------------------------------------------------------
+------------------------------ Media list -------------------------------
+-----------------------------------------------------------------------*/
+.media {
+  .media-content {
+    margin: 0.9375rem 0;
+    ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        text-align: center;
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------------------------------
+------------------------------ Media list -------------------------------
+-----------------------------------------------------------------------*/
+.comments {
+  .comments-order {
+    border-bottom: 1px solid #eee;
+  }
+  .comments-content {
+
+    ul {
+      li {
+        margin: 0.3125rem auto;
+        padding: 0.3125rem 0;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+    .comment-content {
+      display: flex;
+      .comment-avatar {
+        text-align: center;
+        width: 3.75rem;
+        padding: 0 0.3125rem;
+        img {
+          width: 3rem;
+          height: 3rem;
+        }
+        p {
+          font-size: 0.875rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow-x: hidden;
+        }
+      }
+      .comment-desc {
+        width: calc(100% - 60px);
+        .comment-response {
+          min-height: 3rem;
+          font-size: 14px;
+          color: #555;
+        }
+        .comment-info {
+          font-size: 0.75rem;
+          color: #999;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------------------------------
 -------------------------- fixed compoment css --------------------------
 -----------------------------------------------------------------------*/
 .weui-toptips.weui-toptips_warn {
   padding: 10px;
-  background: linear-gradient(120deg, $dangM, $dangN)
+  background: linear-gradient(120deg, $dangM, $dangN);
 }

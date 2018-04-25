@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       topicData: [],
-      Tran_noneMore: this.PGTitle.noneMore,
-      Tran_loadMore: this.PGTitle.loadMore,
+      Tran_noneMore: this.APLang.noneMore,
+      Tran_loadMore: this.APLang.loadMore,
       loadMore: false,
       pages: {
         page_count: 0,
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     showPGConfig(){
-      this.$store.commit('newTitle', this.PGTitle.topic);// page title
+      this.$store.commit('newTitle', this.APLang.topic);// page title
       this.$store.commit('showFooter', true);// footer if show
     },
 
@@ -55,7 +55,7 @@ export default {
        _embed:     if true, output article featured image
     */
     getTopic() {
-      this.weui.loading(this.PGTitle.loading);
+      this.weui.loading(this.APLang.loading);
 
       apiUrl.get('pages',{
         params: {
@@ -86,7 +86,7 @@ export default {
             this.weui.topTips(err.response.data.message,3000);
           }
         }else{
-          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+          this.weui.topTips(this.APLang.unknownMistake,3000);
         }
         this.weui.loading().hide();
       });

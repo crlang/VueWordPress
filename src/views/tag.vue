@@ -32,8 +32,8 @@ export default {
     return {
       tagName: '',
       tagData: [],
-      Tran_noneMore: this.PGTitle.noneMore,
-      Tran_loadMore: this.PGTitle.loadMore,
+      Tran_noneMore: this.APLang.noneMore,
+      Tran_loadMore: this.APLang.loadMore,
       loadMore: false,
       pages: {
         page_count: 0,
@@ -70,7 +70,7 @@ export default {
     /* tags: *this tag id
     */
     getTag() {
-      this.weui.loading(this.PGTitle.loading);
+      this.weui.loading(this.APLang.loading);
       apiUrl.get("posts",{
         params: {
           tags: this.$route.params.id
@@ -100,7 +100,7 @@ export default {
             this.weui.topTips(err.response.data.message,3000);
           }
         }else{
-          this.weui.topTips(this.PGTitle.unknownMistake,3000);
+          this.weui.topTips(this.APLang.unknownMistake,3000);
         }
         this.weui.loading().hide();
       });
