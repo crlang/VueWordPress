@@ -10,7 +10,8 @@ import tags from '../views/tags.vue';
 import tag from '../views/tag.vue';
 import media from '../views/media.vue';
 import comments from '../views/comments.vue';
-import login from '../views/login.vue';
+import login from '../views/oauth/login.vue';
+import register from '../views/oauth/register.vue';
 import member from '../views/member.vue';
 
 Vue.use(Router);
@@ -61,6 +62,10 @@ export default new Router({
     {
       path: '/login',
       component: login
+    },
+    {
+      path: '/register',
+      component: register
     },
     {
       path: '/member',

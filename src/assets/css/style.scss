@@ -101,7 +101,6 @@ $succN: #2ecc71;
   .pg-nav-content {
     position: absolute;
     right: 0;
-    top: 2.5rem;
     min-width: 7.5rem;
     opacity: 0;
     transform: translateY(50%);
@@ -125,59 +124,22 @@ $succN: #2ecc71;
 .fixed-footer {
   bottom: 0;
 }
-
-/* loading */
-.page-loading {
+/* footer nav */
+.fixed-footer-nav {
   position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: $z-lod;
-  .v-dot1 {
-    height: 60px;
-    width: 60px;
-    position: absolute;
-    top: calc(50% - 30px);
-    left: calc(50% - 30px);
-    animation: v-dotRotate 2s 0s infinite linear;
-    animation-fill-mode: forwards;
-    .v-dot2 {
-      background-color: rgb(93, 197, 150);
-      height: 30px;
-      width: 30px;
-      border-radius: 100%;
-      animation: v-dotBounce 2s 0s infinite linear;
-      animation-fill-mode: forwards;
-      position: absolute;
-      top: 0;
-      bottom: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-fix;
+  background: #fff;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  > ul {
+    display: flex;
+    text-align: center;
+    > li {
+      width: 100%;
     }
-    .v-dot3 {
-      animation: v-dotBounce 2s -1s infinite linear;
-      animation-fill-mode: forwards;
-      position: absolute;
-      top: auto;
-      bottom: 0;
-      background-color: rgb(93, 197, 150);
-      height: 30px;
-      width: 30px;
-      border-radius: 100%;
-    }
-  }
-}
-@keyframes v-dotRotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes v-dotBounce {
-  0%,
-  100% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.0);
   }
 }
 
@@ -186,9 +148,9 @@ $succN: #2ecc71;
 -----------------------------------------------------------------------*/
 .articles {
   .articles-nav {
-    margin: 10px 0;
+    margin: 0.625rem 0;
     padding: 0;
-    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.15);
     overflow: hidden;
     &::-webkit-scrollbar {
       display: none;
@@ -226,7 +188,7 @@ $succN: #2ecc71;
           height: 7.5rem;
           background-size: cover;
           background-position: center center;
-          border-radius: 5px;
+          border-radius: 0.3125rem;
           border: 1px solid #eee;
         }
         .cont-prev {
@@ -281,15 +243,15 @@ $succN: #2ecc71;
     color: #888;
   }
   .article-desc {
-    padding: 15px 0;
+    padding: 0.9375rem 0;
     color: #999;
-    font-size: 15px;
+    font-size: 0.9375rem;
     margin-bottom: 0;
     &:after {
       display: block;
-      width: 160px;
-      height: 4px;
-      border-radius: 3px;
+      width: 10rem;
+      height: 0.25rem;
+      border-radius: 0.1875rem;
       background: #efefef;
       content: "";
       margin-top: 1rem;
@@ -297,7 +259,7 @@ $succN: #2ecc71;
   }
   .article-content {
     width: 100%;
-    font-size: 14px;
+    font-size: 0.875rem;
     > p {
       margin-bottom: 0.625rem;
     }
@@ -308,19 +270,123 @@ $succN: #2ecc71;
     .dp-highlighter {
       width: 100%;
       overflow-x: auto;
-      margin: 15px 0;
+      margin: 0.9375rem 0;
       ol {
-        margin: 0 0 2px 15px;
+        margin: 0 0 0.125rem 0.9375rem;
         li {
           white-space: nowrap;
         }
       }
     }
   }
+  .article-protected {
+    margin: 2.1875rem 0.625rem;
+    padding: 1.5625rem 0.9375rem;
+    border: 0.125rem dashed #0887e2;
+    > p {
+      color: #999;
+      line-height: 1;
+      margin: 0.3125rem 0;
+      font-size: 0.875rem;
+      text-align: right;
+    }
+    > input {
+      position: relative;
+      &::placeholder {
+        color: #999;
+      }
+      &::before {
+        content: "\e600";
+      }
+    }
+  }
+  .article-comments {
+    > h3 {
+      font-size: 1.125rem;
+      margin-top: 2.1875rem;
+    }
+    ul {
+      li {
+        margin: 0.3125rem auto;
+        padding: 0.3125rem 0;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+    .comment-content {
+      display: flex;
+      .comment-avatar {
+        text-align: center;
+        width: 3.75rem;
+        padding: 0 0.3125rem;
+        img {
+          display: inline-block;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          border: 1px solid #eee;
+          white-space: nowrap;
+          text-overflow: clip;
+          overflow: hidden;
+        }6
+        p {
+          font-size: 0.875rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow-x: hidden;
+        }
+      }
+      .comment-desc {
+        width: calc(100% - 3.75rem);
+        .comment-info {
+          font-size: 0.75rem;
+          color: #999;
+          margin-top: 0.3125rem;
+          span:first-child {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #222;
+          }
+        }
+        .comment-response {
+          min-height: 3rem;
+          font-size: 0.875rem;
+          color: #555;
+        }
+      }
+    }
+  }
+}
+.fixed-response {
+  display: flex;
+  .response-input {
+    width: calc(100% - 2.875rem);
+    input {
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom: 1px solid #aaa;
+      &:focus {
+        border-color: $MC;
+      }
+    }
+  }
+  .response-submit {
+    button {
+      background: none;
+      line-height: 1;
+      outline: none;
+      &:active {
+        color: $MC;
+      }
+      i {
+        font-size: 22px;
+      }
+    }
+  }
 }
 
 /*-----------------------------------------------------------------------
------------------------------ article Style -----------------------------
+------------------------------ topic Style ------------------------------
 -----------------------------------------------------------------------*/
 .topic {
   padding: 1.25rem 0;
@@ -440,7 +506,6 @@ $succN: #2ecc71;
     border-bottom: 1px solid #eee;
   }
   .comments-content {
-
     ul {
       li {
         margin: 0.3125rem auto;
@@ -466,17 +531,38 @@ $succN: #2ecc71;
         }
       }
       .comment-desc {
-        width: calc(100% - 60px);
+        width: calc(100% - 3.75rem);
         .comment-response {
           min-height: 3rem;
-          font-size: 14px;
+          font-size: 0.875rem;
           color: #555;
         }
         .comment-info {
           font-size: 0.75rem;
           color: #999;
-          margin-top: 5px;
+          margin-top: 0.3125rem;
         }
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------------------------------
+------------------------------- pages nav -------------------------------
+-----------------------------------------------------------------------*/
+.pages-nav {
+  .prev-next {
+    display: flex;
+    border: 1px solid #eee;
+    margin: 1.5625rem auto;
+    .prev-page,
+    .next-page {
+      width: 50%;
+      padding: 0.4375rem;
+      text-align: center;
+      background: #eee;
+      &.empty {
+        background: #fafafa;
       }
     }
   }

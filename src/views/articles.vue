@@ -13,7 +13,8 @@
           <li v-for="(item,index) in articleData" :key="index" @click="viewArticle(index)">
             <div class="cont-prev">
               <div class="title" v-html="item.title.rendered"></div>
-              <div class="desc" v-html="item.excerpt.rendered"></div>
+              <div class="desc" v-if="!item.excerpt.protected" v-html="item.excerpt.rendered"></div>
+              <div class="desc" v-else>文章具有密码保护！</div>
               <div class="time" v-text="item.date"></div>
             </div>
             <div class="img-prev" :style="{backgroundImage:'url('+ item.featured_media +')'}"></div>

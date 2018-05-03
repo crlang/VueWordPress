@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { apiUrl } from "../../utils/api.js";
+
 export default {
   data() {
     return {
@@ -15,12 +17,16 @@ export default {
   },
   mounted () {
     this.showPGConfig();
+    this.submitLogin();
   },
   methods: {
     // site config
     showPGConfig(){
       this.$store.commit('newTitle', this.APLang.login);// page title
       this.$store.commit('showFooter', false);// footer if show
+    },
+
+    submitLogin() {
     }
   }
 };

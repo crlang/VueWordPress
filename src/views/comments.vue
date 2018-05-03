@@ -2,8 +2,8 @@
   <div class="comments">
     <div class="wrap">
       <div class="comments-order">
-        <span class="weui-btn weui-btn_mini" @click="newComments()" :class=" order === 'asc' ? 'weui-btn_primary' : 'weui-btn_default'">{{Tran_new}}</span>
-        <span class="weui-btn weui-btn_mini" @click="oldComments()" :class=" order === 'desc' ? 'weui-btn_primary' : 'weui-btn_default'">{{Tran_old}}</span>
+        <span class="weui-btn weui-btn_mini" @click="newComments()" :class=" order === 'desc' ? 'weui-btn_primary' : 'weui-btn_default'">{{Tran_new}}</span>
+        <span class="weui-btn weui-btn_mini" @click="oldComments()" :class=" order === 'asc' ? 'weui-btn_primary' : 'weui-btn_default'">{{Tran_old}}</span>
       </div>
       <div class="comments-content">
         <ul>
@@ -41,11 +41,11 @@ export default {
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 10
+        per_page: 5
       },
       loadMore: false,
-      order: "asc",
-      orderBy: "date_gmt"
+      order: "desc",
+      orderBy: "date"
     };
   },
   mounted: function () {
@@ -58,14 +58,15 @@ export default {
       this.$store.commit('newTitle', this.APLang.comments);// page title
       this.$store.commit('showFooter', true);// footer if show
     },
-
     getComments() {
       this.weui.loading(this.APLang.loading);
 
       apiUrl.get("comments",{
         params: {
-          order: this.order,
-          orderby: this.orderBy
+          page: this.pages.page,
+          per_page: this.pages.per_page,
+          // order: this.order,
+          // orderby: this.orderBy
         }
       }).then(res => {
         console.log(res.data);
@@ -99,13 +100,20 @@ export default {
         this.weui.loading().hide();
       });
     },
-    newComments() {
-      this.order = 'asc';
+    orderBys() {
+      this.commentsData = [];
+      this.pages.page = 1;
+      this.pages.page_count = 0;
+      this.loadMore = true;
       this.getComments();
     },
-    oldComments() {
+    newComments() {
       this.order = 'desc';
-      this.getComments();
+      this.orderBys();
+    },
+    oldComments() {
+      this.order = 'asc';
+      this.orderBys();
     },
     // show more data
     getMore() {
