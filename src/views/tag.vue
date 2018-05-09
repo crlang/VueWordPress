@@ -38,17 +38,15 @@ export default {
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 33
+        per_page: 10
       }
     };
   },
   mounted: function() {
     this.showPGConfig();
     this.getTagConfig();
-    this.getTag();
+    this.getTagPost();
 
-  },
-  computed: {
   },
   methods: {
     showPGConfig(data) {
@@ -57,7 +55,7 @@ export default {
     },
 
     // get tag some info
-    // get -> tags/{tag id}
+    // get -> tags/{this tag id}
     getTagConfig(){
       apiUrl.get("tags/" + this.$route.params.id).then(res => {
         this.tagName = res.data.name;
@@ -69,14 +67,15 @@ export default {
     // get -> posts
     /* tags: *this tag id
     */
-    getTag() {
+    getTagPost() {
       this.weui.loading(this.APLang.loading);
       apiUrl.get("posts",{
         params: {
+          page: this.pages.page,
+          per_page: this.pages.per_page,
           tags: this.$route.params.id
         }
       }).then(res => {
-        console.log('res',res.data);
         for (let i in res.data) {
           if (res.data.hasOwnProperty(i)) {
             res.data[i].date = this.formatTime(res.data[i].date);
@@ -94,18 +93,12 @@ export default {
         }
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },
 
+    // go to this tag the article
     goArticle(id) {
       this.$router.push({
         path: "../article/" + id
@@ -116,7 +109,7 @@ export default {
     getMore() {
       this.pages.page += 1;
       this.loadMore = true;
-      this.getTag();
+      this.getTagPost();
     },
   }
 };

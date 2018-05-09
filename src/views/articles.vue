@@ -14,7 +14,7 @@
             <div class="cont-prev">
               <div class="title" v-html="item.title.rendered"></div>
               <div class="desc" v-if="!item.excerpt.protected" v-html="item.excerpt.rendered"></div>
-              <div class="desc" v-else>文章具有密码保护！</div>
+              <div class="desc" v-else>{{Tran_protected}}</div>
               <div class="time" v-text="item.date"></div>
             </div>
             <div class="img-prev" :style="{backgroundImage:'url('+ item.featured_media +')'}"></div>
@@ -36,7 +36,6 @@
 
 <script>
 import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
-import weui from "weui.js";
 
 export default {
   data() {
@@ -45,6 +44,7 @@ export default {
       Tran_Home: this.APLang.home,
       Tran_noneMore: this.APLang.noneMore,
       Tran_loadMore: this.APLang.loadMore,
+      Tran_protected: this.APLang.msg.articleProtected,
       loadMore: false,
       pages: {
         page_count: 0,
@@ -73,10 +73,10 @@ export default {
 
     // get artile list
     // get -> posts
-    /* page:       number
-       per_page:   number
-       categories: each categories id
-       _embed:     if true, output article featured image
+    /*
+     *
+     * categories: if categories id, The current directory article is displayed
+     * _embed:     if true, output article featured image
     */
     getArticleList() {
       this.weui.loading(this.APLang.loading);
@@ -90,8 +90,6 @@ export default {
           categories: this.categories
         }
       }).then(res => {
-        console.log('res',res.data);
-
         for (let i in res.data) {
           if (res.data.hasOwnProperty(i)) {
             res.data[i].date = this.formatTime(res.data[i].date);
@@ -113,14 +111,7 @@ export default {
         }
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err.",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },

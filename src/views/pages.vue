@@ -47,12 +47,11 @@ export default {
 
     // get topic
     // get -> topic
-    /* page:       number, default 1
-       per_page:   number, default 10
-       exclude:    exclude some id
-       orderby:    some way by order, options: [id,include,name,slug,include_slugs,term_group,description,count]
-       order:      default asc, options: [asc,desc]
-       _embed:     if true, output article featured image
+    /*
+     * exclude:    exclude some id
+     * orderby:    some way by order, options: [id,include,name,slug,include_slugs,term_group,description,count]
+     * order:      default asc, options: [asc,desc]
+     * _embed:     if true, output article featured image
     */
     getTopic() {
       this.weui.loading(this.APLang.loading);
@@ -64,8 +63,6 @@ export default {
           _embed: true
         }
       }).then(res => {
-        console.log(res.data);
-
         let newRes = this.replaceFeaturesImg(res.data);
         this.topicData = this.topicData.concat(newRes);
 
@@ -80,14 +77,7 @@ export default {
 
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err",err);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },

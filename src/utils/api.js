@@ -1,11 +1,11 @@
 import axios from "axios";
 
 /* Your WordPress site URL, do not add http:// */
-export let WPBlogSiteUrl = "wpdemo.cc";
+export let WPBlogSiteUrl = "wordpress.crlang.com";
 /* default chinese, options: chinese english */
 export let siteLanguage = 'chinese';
 /* if true, the site mush be HTTPS protocol*/
-const siteIsSafe = false;
+const siteIsSafe = true;
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!! danger !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*!!!!!!!!!!!!!!!!!!!!! ojbk , do not modify !!!!!!!!!!!!!!!!!!!!!*/
@@ -15,10 +15,16 @@ if (siteIsSafe) {
   WPBlogSiteUrl = "http://" + WPBlogSiteUrl;
 }
 
+let userToken = sessionStorage.getItem("userToken") || null;
+if (userToken !== null) {
+  userToken = 'Bearer' + userToken;
+}else{
+  userToken = '';
+}
 export const apiUrl = axios.create({
-  baseURL: WPBlogSiteUrl + `/wp-json/wp/v2/`,
+  baseURL: WPBlogSiteUrl + '/wp-json/wp/v2/',
   headers: {
-    'content-type': 'application/x-www-form-urlencoded',
-    'Authorization': 'Bearer {token}'
+    'content-type': 'application/json',
+    'Authorization': userToken
   }
 });

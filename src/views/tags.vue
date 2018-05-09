@@ -29,7 +29,7 @@ export default {
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 33
+        per_page: 35
       }
     };
   },
@@ -47,13 +47,13 @@ export default {
       this.$store.commit('newTitle', this.APLang.tags);// page title
       this.$store.commit('showFooter', true);// footer if show
     },
+
     // get tag list
     // get -> tags
-    /* page:       number, default 1
-       per_page:   number, default 10
-       orderby:    some way by order, options: [id,include,name,slug,include_slugs,term_group,description,count]
-       order:      default asc, options: [asc,desc]
-       _embed:     if true, output article featured image
+    /*
+     * orderby:    some way by order, options: [id,include,name,slug,include_slugs,term_group,description,count]
+     * order:      default asc, options: [asc,desc]
+     * _embed:     if true, output article featured image
     */
     getTages() {
       this.weui.loading(this.APLang.loading);
@@ -66,7 +66,6 @@ export default {
           per_page: this.pages.per_page
         }
       }).then(res => {
-        console.log(res);
         this.tagsData = this.tagsData.concat(res.data);
 
         if (this.pages.page_count === 0) {
@@ -79,14 +78,7 @@ export default {
         }
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },

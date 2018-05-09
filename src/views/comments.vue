@@ -41,7 +41,7 @@ export default {
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 5
+        per_page: 10
       },
       loadMore: false,
       order: "desc",
@@ -58,6 +58,13 @@ export default {
       this.$store.commit('newTitle', this.APLang.comments);// page title
       this.$store.commit('showFooter', true);// footer if show
     },
+
+    // get all comments
+    // get -> comments
+    /*
+     * order: default desc, options: asc
+       orderby: default date_gmt, options: "date","date_gmt","id","include","post","parent","type"
+    */
     getComments() {
       this.weui.loading(this.APLang.loading);
 
@@ -65,12 +72,10 @@ export default {
         params: {
           page: this.pages.page,
           per_page: this.pages.per_page,
-          // order: this.order,
-          // orderby: this.orderBy
+          order: this.order,
+          orderby: this.orderBy
         }
       }).then(res => {
-        console.log(res.data);
-
         for (let i in res.data) {
           if (res.data.hasOwnProperty(i)) {
             res.data[i].date = this.formatTime(res.data[i].date);
@@ -89,17 +94,12 @@ export default {
         }
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err.",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },
+
+    //...
     orderBys() {
       this.commentsData = [];
       this.pages.page = 1;
@@ -107,21 +107,24 @@ export default {
       this.loadMore = true;
       this.getComments();
     },
+
     newComments() {
       this.order = 'desc';
       this.orderBys();
     },
+
     oldComments() {
       this.order = 'asc';
       this.orderBys();
     },
+
     // show more data
     getMore() {
       this.pages.page += 1;
       this.pages.page_count -= 1;
       this.loadMore = true;
       this.getComments();
-    },
+    }
   }
 };
 </script>

@@ -7,11 +7,11 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
-body {
+/* body {
   line-height: 1.6;
   font-family: -apple-system-font, "Helvetica Neue", sans-serif;
-}
-* {
+} */
+/* * {
   margin: 0;
   padding: 0;
 }
@@ -21,7 +21,7 @@ a img {
 a {
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
+} */
 @font-face {
   font-weight: normal;
   font-style: normal;

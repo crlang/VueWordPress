@@ -53,20 +53,12 @@ export default {
           slug: this.slug,
         }
       }).then(res => {
-        console.log(res.data);
         this.showPGConfig(res.data[0].title.rendered);
         res.data[0].date = this.formatTime(res.data[0].date);
         this.pageData = res.data[0];
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     }

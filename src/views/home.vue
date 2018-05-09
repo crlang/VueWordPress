@@ -94,8 +94,6 @@ export default {
           categories: this.categories
         }
       }).then(res => {
-        console.log('res',res.data);
-
         for (let i in res.data) {
           if (res.data.hasOwnProperty(i)) {
             res.data[i].date = this.formatTime(res.data[i].date);
@@ -118,14 +116,7 @@ export default {
 
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err.",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },

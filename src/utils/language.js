@@ -20,6 +20,7 @@ if (siteLanguage === 'english') {
     author: "Author",
     time: "Time",
     date: "Date",
+    submitting: "Submitting",
     loading: "Loading...",
     noneMore: "No data",
     loadMore: "Load More",
@@ -27,16 +28,20 @@ if (siteLanguage === 'english') {
     media: "Media",
     comments: "Comments",
     comment: "comment",
-    newcomment: "default",
-    oldcomment: "older",
+    newComments: "default",
+    oldComments: "older",
     commentLink: "Post Link",
     login: "Login In",
+    noneLogin: "Not Login",
+    nonePermission: "Permission Denied",
     register: "Login Up",
+    prev: "Prev",
+    next: "Next",
     homeCategories: {
-      media: "Gallery",
-      article: "Article",
+      media: "Gallerys",
+      article: "Articles",
       comments: "Comments",
-      login: "Login"
+      login: "Login In"
     },
     fixedfooter: {
       home: "home",
@@ -44,6 +49,84 @@ if (siteLanguage === 'english') {
       post: "post",
       tags: "tags",
       member: "member"
+    },
+    popAction: {
+      success: "Success",
+      fail: "Fail",
+      cancel: "Cancel",
+      ok: "Ok",
+      confirm: "Confirm",
+      return: "Back"
+    },
+    members: {
+      myComment: "My Comment",
+      myArticle: "My Article",
+      myMedia: "My Gallery",
+      setting: "Setup Center",
+      logout: "Sign Out",
+      language: "Language Selection",
+      history: "Browsing History",
+      historyTips: "Automatically empty from time at random"
+    },
+    forms: {
+      password: "Please enter your password",
+      title: "Please enter title",
+      content: "Please enter content",
+      excerpt: "Please enter summary",
+      username: "Please enter username",
+      email: "Please input your email",
+      form: {
+        username: "Username",
+        useremail: "Email",
+        userpassword: "Password"
+      }
+    },
+    posts: {
+      publish: "Publish",
+      future: "Future",
+      draft: "Draft",
+      pending: "Pending",
+      private: "Private",
+      postNow: "Post Now?",
+      postTop: "Sticky Article?",
+      postMoreOption: "More Options",
+      postExcerpt: "Enter The Summary?",
+      postComment: "Allow Comments?",
+      postFuture: "Timely Release?",
+      postTime: "Set Time",
+      postSetTime: "Click Set Time",
+      postPrivate: "Set As Private?",
+      postProtected: "Password Protection?",
+      postPending: "Post is pending",
+      postArticle: "Post Article",
+      postDraft: "Save Draft",
+      postView: "View Article",
+      postSuccess: "Published successfully",
+      postModifyArticle: "Modify Articles",
+      postModifyDraft: "Edit draft",
+      postDraftSuccess: "Draft saved"
+    },
+    msg: {
+      logged: "You are already logged in. \nAre you logged out?",
+      logoutSuccess: "Logout successful!",
+      autoLogin: "Auto Login?",
+      noneAccount: "Register an account?",
+      emptyInput: "Username or password cannot be empty!",
+      loginThisAccount: "Registration done. Use this user logged in?",
+      loginSuccess: "login successful!",
+      loginFail: "Login failed!",
+      haveAccount: "Already have an account?",
+      registerTip: "Unable to register users due to system restrictions, users can only be added! \nPlease log in first!",
+      registerSuccess: "registration success!",
+      registerFail: "registration failed!",
+      emptyResponse: "Comments cannot be empty!",
+      articleProtected: "Article is password protected!",
+      nonePassword: "password can not be blank!",
+      nonePermissions: "If the permissions are insufficient, the article will automatically enter the pending status",
+      noneWordCount: "Less than {Num}, not allowed to post!",
+      nonePostTitle: "The title is empty and not allowed to publish!",
+      nonePostTime: "Regular release must set the time!",
+      confirmDraft: "Save as draft?"
     }
   };
 }else if(siteLanguage === 'chinese') {
@@ -62,7 +145,8 @@ if (siteLanguage === 'english') {
     author: "作者",
     time: "时间",
     date: "日期",
-    loading: "正在加载",
+    submitting: "提交中...",
+    loading: "正在加载...",
     noneMore: "暂无数据",
     loadMore: "加载更多",
     unknownMistake: "未知错误",
@@ -72,13 +156,17 @@ if (siteLanguage === 'english') {
     newComments: "最新评论",
     oldComments: "最旧评论",
     commentLink: "文章链接",
-    login: "登陆",
+    login: "登录",
+    noneLogin: "未登录",
+    nonePermission: "没有权限",
     register: "注册",
+    prev: "上一页",
+    next: "下一页",
     homeCategories: {
       media: "图库",
       article: "文章",
       comments: "言论",
-      login: "登陆"
+      login: "登录"
     },
     fixedfooter: {
       home: "首页",
@@ -86,6 +174,84 @@ if (siteLanguage === 'english') {
       post: "发布",
       tags: "标签",
       member: "我的"
+    },
+    popAction: {
+      success: "成功",
+      fail: "失败",
+      cancel: "取消",
+      ok: "确认",
+      confirm: "继续",
+      return: "返回"
+    },
+    members: {
+      myComment: "我的评论",
+      myArticle: "我的文章",
+      myMedia: "我的图库",
+      setting: "设置中心",
+      logout: "退出登录",
+      language: "语言选择",
+      history: "浏览历史",
+      historyTips: "不定期自动清空"
+    },
+    forms: {
+      password: "请输入密码",
+      title: "请输入标题",
+      content: "请输入内容",
+      excerpt: "请输入摘要",
+      username: "请输入用户名",
+      email: "请输入邮箱",
+      form: {
+        username: "用户名称",
+        useremail: "用户邮箱",
+        userpassword: "用户密码"
+      }
+    },
+    posts: {
+      publish: "发布",
+      future: "定时",
+      draft: "草稿",
+      pending: "审核",
+      private: "私密",
+      postNow: "现在发布？",
+      postTop: "置顶文章？",
+      postMoreOption: "更多选项",
+      postExcerpt: "输入摘要？",
+      postComment: "允许评论？",
+      postFuture: "定时发布？",
+      postTime: "设定时间",
+      postSetTime: "点击设定时间",
+      postPrivate: "设为私密？",
+      postProtected: "密码保护？",
+      postPending: "等待审核",
+      postArticle: "发布文章",
+      postDraft: "保存草稿",
+      postView: "查看文章",
+      postSuccess: "发布成功",
+      postModifyArticle: "修改文章",
+      postModifyDraft: "修改草稿",
+      postDraftSuccess: "已保存草稿"
+    },
+    msg: {
+      logged: "你已经登录！ \n是否退出登录？",
+      logoutSuccess: "退出登录成功",
+      autoLogin: "自动登录？",
+      noneAccount: "注册账号？",
+      emptyInput: "用户名或密码不能为空！",
+      loginThisAccount: "注册成功，是否使用该用户登录？",
+      loginSuccess: "登录成功",
+      loginFail: "登录失败",
+      haveAccount: "已有账号？登录",
+      registerTip: "由于系统限制，无法注册用户，只能添加用户！\n请先登录！",
+      registerSuccess: "注册成功",
+      registerFail: "注册失败",
+      emptyResponse: "评论不能为空！",
+      articleProtected: "文章具有密码保护！",
+      nonePassword: "密码不能为空！",
+      nonePermissions: "如果权限不足，文章自动进入待审核状态",
+      noneWordCount: "少于{Num}，不允许发布！",
+      nonePostTitle: "标题为空，不允许发布！",
+      nonePostTime: "定时发布必须设定时间！",
+      confirmDraft: "是否保存为草稿？"
     }
   };
 }

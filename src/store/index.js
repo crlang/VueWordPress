@@ -6,7 +6,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     title: '',
-    footer: false
+    footer: false,
+    userToken: ''
   },
   mutations: {
     newTitle(state,msg) {
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
     },
     showFooter(state,msg) {
       state.footer = msg;
+    },
+    setUserToken(state,token) {
+      state.userToken = token;
     }
   }
 });

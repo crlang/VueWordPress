@@ -148,7 +148,7 @@ $succN: #2ecc71;
 -----------------------------------------------------------------------*/
 .articles {
   .articles-nav {
-    margin: 0.625rem 0;
+    margin: 0 0 0.625rem;
     padding: 0;
     box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.15);
     overflow: hidden;
@@ -205,6 +205,9 @@ $succN: #2ecc71;
             font-weight: lighter;
             color: #888;
             margin-bottom: 0.9375rem;
+            a.more-link {
+              display: none;
+            }
           }
           .time{
             font-size: 0.75rem;
@@ -247,6 +250,9 @@ $succN: #2ecc71;
     color: #999;
     font-size: 0.9375rem;
     margin-bottom: 0;
+    a.more-link {
+      display: none;
+    }
     &:after {
       display: block;
       width: 10rem;
@@ -307,8 +313,8 @@ $succN: #2ecc71;
     }
     ul {
       li {
-        margin: 0.3125rem auto;
-        padding: 0.3125rem 0;
+        margin: 0.625rem auto;
+        padding: 0.625rem 0;
         border-bottom: 1px solid #ccc;
       }
     }
@@ -327,7 +333,7 @@ $succN: #2ecc71;
           white-space: nowrap;
           text-overflow: clip;
           overflow: hidden;
-        }6
+        }
         p {
           font-size: 0.875rem;
           white-space: nowrap;
@@ -348,7 +354,7 @@ $succN: #2ecc71;
           }
         }
         .comment-response {
-          min-height: 3rem;
+          // min-height: 3rem;
           font-size: 0.875rem;
           color: #555;
         }
@@ -502,6 +508,7 @@ $succN: #2ecc71;
 ------------------------------ Media list -------------------------------
 -----------------------------------------------------------------------*/
 .comments {
+  padding: 15px 0;
   .comments-order {
     border-bottom: 1px solid #eee;
   }
@@ -541,9 +548,97 @@ $succN: #2ecc71;
           font-size: 0.75rem;
           color: #999;
           margin-top: 0.3125rem;
+          a {
+            color: inherit;
+          }
         }
       }
     }
+  }
+}
+/*-----------------------------------------------------------------------
+-------------------------------- member ---------------------------------
+-----------------------------------------------------------------------*/
+.member {
+  overflow: hidden;
+  .wrap {
+    margin: auto -0.9375rem;
+  }
+  .user-bg,
+  .user-list ul,
+  .user-myself {
+    box-shadow: 0 0 1.25rem #eee;
+  }
+  .user-bg {
+    padding: 2.5rem 0;
+    background: $MC;
+    background-image: linear-gradient(80deg,$MC 0,$MCN 100%);
+    .user-avatar {
+    width: 4rem;
+    height: 4rem;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 1.5625rem rgba(0, 0, 0, 0.25);
+    }
+    .user-name {
+      text-align: center;
+      margin-top: 0.9375rem;
+      color: #333;
+    }
+  }
+  .user-myself {
+    margin: 0.9375rem 0;
+    padding: 0.625rem 0;
+    ul {
+      display: flex;
+      li {
+        width: 33.333333%;
+        text-align: center;
+        color: #999;
+        i {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+  .user-list {
+    ul {
+      margin: 0.9375rem auto;
+      li {
+        padding: .625rem 0.9375rem;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        transition: all 0.25s linear;
+        &:hover,
+        &:active,
+        &:focus {
+          background: #fafafa;
+          color: #555;
+          outline: none;
+        }
+        span {
+          font-size: 0.875rem;
+          color: #999;
+          i {
+            display: inline-block;
+            color: #666;
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*-----------------------------------------------------------------------
+--------------------------------- post ----------------------------------
+-----------------------------------------------------------------------*/
+.post {
+  overflow-x: hidden;
+  .wrap {
+    padding: 0;
   }
 }
 
@@ -571,7 +666,15 @@ $succN: #2ecc71;
 /*-----------------------------------------------------------------------
 -------------------------- fixed compoment css --------------------------
 -----------------------------------------------------------------------*/
-.weui-toptips.weui-toptips_warn {
-  padding: 10px;
-  background: linear-gradient(120deg, $dangM, $dangN);
+.weui-toptips{
+  &.weui-toptips_warn {
+    padding: 10px;
+    background: linear-gradient(120deg, $dangM, $dangN);
+    &.weui-toptips_succ {
+      background: linear-gradient(120deg, $succM, $succN);
+    }
+    &.weui-toptips_info {
+      background: linear-gradient(120deg, $infoM, $infoN);
+    }
+  }
 }

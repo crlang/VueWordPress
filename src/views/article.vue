@@ -4,9 +4,9 @@
       <h1 class="title">{{articleData.title.rendered}}</h1>
       <p class="meta" v-if="articleData.date"><span>{{Tran_author}}: {{articleData.author}}</span><span> {{Tran_date}} {{articleData.date}}</span></p>
       <div class="article-desc" v-if="articleData.excerpt.rendered.length > 0" v-html="articleData.excerpt.rendered"></div>
-      <div class="article-content" v-if="!protected" v-html="this.replaceImgUrl(articleData.content.rendered)"></div>
-      <div class="article-protected" v-else><input type="text" v-model="password" placeholder="请输入密码" @keyup.enter="enterPWD"><p>文章具有密码保护！</p></div>
-      <div class="article-comments" v-if="articleData.comment_status === 'open'">
+      <div class="article-protected" v-if="protected"><input type="text" v-model="password" :placeholder="Tran_password" @keyup.enter="enterPWD"><p>{{Tran_protected}}</p></div>
+      <div class="article-content" v-html="this.replaceImgUrl(articleData.content.rendered)" v-else></div>
+      <div class="article-comments" v-if="articleData.comment_status === 'open' && commentsData.length > 0">
         <h3>{{Tran_comment}}</h3>
         <ul>
           <li v-for="(item,index) in commentsData" :key="index">
@@ -19,13 +19,21 @@
             </div>
           </li>
         </ul>
-        <div class="pages-nav">
+        <div class="pages-nav" v-if="pages.page_count > 1">
           <div class="prev-next">
-            <div class="prev-page" :class="pages.page > 1 ? '': 'empty'" @click="getPrevPage">上一页</div>
-            <div class="next-page" :class="pages.page < pages.page_count ? '': 'empty'" @click="getNextPage">下一页</div>
+            <div class="prev-page" :class="pages.page > 1 ? '': 'empty'" @click="getPrevPage">{{Tran_prev}}</div>
+            <div class="next-page" :class="pages.page < pages.page_count ? '': 'empty'" @click="getNextPage">{{Tran_next}}</div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="fixed-footer-nav">
+      <form @submit.prevent="responsePost" id="response">
+        <div class="fixed-response">
+          <div class="response-input"><input type="text" name="" id="rp-input" v-model="responseData.content"></div>
+          <div class="response-submit"><button type="submit"><i class="iconfont icon-post"></i></button></div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -36,15 +44,20 @@
 
 
 <script>
-import { WPBlogSiteUrl, apiUrl } from "../utils/api.js";
+import { apiUrl } from "../utils/api.js";
 export default {
   data() {
     return {
       Tran_author: this.APLang.author,
       Tran_date: this.APLang.date,
       Tran_comment: this.APLang.comment,
+      Tran_password: this.APLang.forms.password,
+      Tran_protected: this.APLang.msg.articleProtected,
+      Tran_prev: this.APLang.prev,
+      Tran_next: this.APLang.next,
       password: '',
       protected: false,
+      postID: null,
       articleData: {
         title: {
           rendered: ''
@@ -62,12 +75,14 @@ export default {
       pages: {
         page_count: 0,
         page: 1,
-        per_page: 5
+        per_page: 10
       },
+      responseData: []
     };
   },
   mounted: function() {
     this.showPGConfig();
+    this.getPostID();
     this.getArticle();
   },
   methods: {
@@ -77,47 +92,36 @@ export default {
     },
 
     // get artile
-    // get -> posts/this article id
+    // get -> posts/{this article id}
     /*
      * password: if the article is protected.
      * _embed: if true, output article featured image
     */
     getArticle() {
-      this.weui.loading(this.APLang.loading);
+      let self = this;
+      self.weui.loading(self.APLang.loading);
 
-      apiUrl.get("posts/" + this.$route.params.id,{
+      apiUrl.get("posts/" + self.$route.params.id,{
         params: {
-          password: this.password
+          password: self.password
         }
       }).then(res => {
-        console.log(res);
-        this.showPGConfig(res.data.title.rendered);
-        res.data.date = this.formatTime(res.data.date);
-        this.articleData = res.data;
-        this.weui.loading().hide();
-
-        if (res.data.content.protected) {
-          if(this.articleData.content.rendered.length === 0) {
-            this.protected = true;
-            this.weui.topTips("文章具有密码保护！",3000);
+        self.showPGConfig(res.data.title.rendered);
+        res.data.date = self.formatTime(res.data.date);
+        self.articleData = res.data;
+        if (self.articleData.content.protected) {
+          if(self.articleData.content.rendered.length === 0) {
+            self.protected = true;
+            self.weui.topTips(self.APLang.msg.articleProtected,3000);
           }else{
-            this.protected = false;
-            this.getArticleComments();
+            self.protected = false;
           }
-        }else {
-          this.getArticleComments();
         }
-
+        self.weui.loading().hide();
+        self.getArticleComments();
       }).catch(err => {
-        console.log("err",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
-        this.weui.loading().hide();
+        self.responseError(err);
+        self.weui.loading().hide();
       });
     },
 
@@ -125,6 +129,16 @@ export default {
       this.getArticle();
     },
 
+    getPostID() {
+      this.postID = this.$route.params.id;
+    },
+
+    // get this article comment
+    // get -> comments
+    /*
+     * post: *this article id
+     * password: if the article is protected.
+    */
     getArticleComments() {
       this.weui.loading(this.APLang.loading);
 
@@ -132,12 +146,10 @@ export default {
         params: {
           page: this.pages.page,
           per_page: this.pages.per_page,
-          post: this.$route.params.id,
+          post: this.postID,
           password: this.password
         }
       }).then(res => {
-        console.log(res);
-
         for (let i in res.data) {
           if (res.data.hasOwnProperty(i)) {
             res.data[i].date = this.formatTime(res.data[i].date);
@@ -151,18 +163,12 @@ export default {
         }
         this.weui.loading().hide();
       }).catch(err => {
-        console.log("err.",err.response);
-        if(err.response) {
-          if (err.response.status !== 200) {
-            this.weui.topTips(err.response.data.message,3000);
-          }
-        }else{
-          this.weui.topTips(this.APLang.unknownMistake,3000);
-        }
+        this.responseError(err);
         this.weui.loading().hide();
       });
     },
 
+    // next comments
     getNextPage() {
       let allPages = this.pages.page_count;
       if(this.pages.page < allPages) {
@@ -172,6 +178,7 @@ export default {
       }
     },
 
+    // prev comments
     getPrevPage() {
       let allPages = this.pages.page_count;
       if(this.pages.page > 1 && this.pages.page <= allPages) {
@@ -179,6 +186,39 @@ export default {
         this.commentsData = [],
         this.getArticleComments();
       }
+    },
+
+    // response this article
+    // post -> comments
+    /*
+     * post: *this article id
+     * content: *the response content
+    */
+    responsePost() {
+      let self = this;
+      if (!self.responseData.content) {
+        self.weui.topTips(self.APLang.msg.emptyResponse,1200);
+        return false;
+      }
+      apiUrl.post("comments",{
+        "post": self.postID,
+        "content": self.responseData.content
+      }).then(res => {
+        if (res.status === 201) {
+          self.weui.toast(self.APLang.popAction.success,{
+            duration: 1200,
+            callback: function(){
+              self.commentsData = [];
+              self.getArticleComments();
+              self.responseData = '';
+            }
+          }
+          );
+        }
+      }).catch(err => {
+        self.responseError(err);
+        self.weui.loading().hide();
+      });
     }
   }
 };
