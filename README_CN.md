@@ -42,7 +42,7 @@ define('JWT_AUTH_CORS_ENABLE', true);
 npm install
 
 # 启动运行后，在 localhost：8088 打开，默认具有热加载
-npm run strat
+npm run start
 
 #  开发环境命令，文件较大用于开发环境
 # 本地会生成 dist 文件夹，可用于线上部署

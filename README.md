@@ -43,7 +43,7 @@ define('JWT_AUTH_CORS_ENABLE', true);
 npm install
 
 # serve with hot reload at localhost:8088
-npm run strat
+npm run start
 
 #  build for development
 npm run dev
